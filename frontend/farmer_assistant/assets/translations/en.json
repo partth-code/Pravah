@@ -1,0 +1,229 @@
+{
+  "profile": {
+    "title": "Profile",
+    "identity_info": "Identity Information",
+    "aadhaar": "Aadhaar Number",
+    "farm_id": "Unique Farm ID",
+    "farmer_id": "Unique Farmer ID",
+    "farm_info": "Farm Information",
+    "select_language": "Select Language",
+    "state": "State",
+    "district": "District",
+    "land_area": "Land Area",
+    "soil_type": "Soil Type",
+    "water_level": "Water Level",
+    "primary_crop": "Primary Crop",
+    "farmer_name": "Farmer Name",
+    "acres": "acres",
+    "view_details": "View details",
+    "settings": "Settings",
+    "language": "Language",
+    "change_app_language": "Change app language",
+    "account_settings": "Account Settings",
+    "manage_account": "Manage your account",
+    "notifications": "Notifications",
+    "manage_notifications": "Manage notification preferences"
+  },
+  "policy": {
+    "title": "Policy Dashboard",
+    "search_hint": "Search policies and subsidies...",
+    "empty_title": "No policies found",
+    "empty_sub": "Try searching with different keywords",
+    "claim": "Claim",
+    "apply": "Apply",
+    "subsidy_details": "Subsidy Details",
+    "policy_details": "Policy Details",
+    "description": "Description",
+    "required_docs": "Required Documents",
+    "how_to_apply": "How to redeem / apply",
+    "bookmark": "Bookmark",
+    "claim_now": "Claim Now",
+    "apply_now": "Apply Now",
+    "policies": "Policies",
+    "subsidies": "Subsidies",
+    "required": "Required",
+    "documents": "documents",
+    "quick_suggestions": {
+      "seed_subsidy": "Seed Subsidy",
+      "irrigation": "Irrigation",
+      "crop_insurance": "Crop Insurance",
+      "weather_alert": "Weather Alert"
+    },
+    "steps": {
+      "check_eligibility": "Check eligibility and required documents",
+      "prepare_docs": "Prepare scanned copies of documents",
+      "fill_form": "Fill out online application form",
+      "submit": "Submit and note application ID",
+      "track_status": "Track status and receive benefits"
+    }
+  },
+  "disease": {
+    "title": "Disease Detection",
+    "header": "Detect Plant Diseases",
+    "hint": "Tap the magnifying glass to upload an image of your plant",
+    "analyzing": "Analyzing plant image...",
+    "wait": "This may take a few seconds"
+  },
+  "home": {
+    "todays_task": "Today's Task",
+    "no_task": "No task scheduled for today.",
+    "quick_check": "Quick Check",
+    "q1": "Did you water your crops today?",
+    "q2": "Any pest signs observed?",
+    "q3": "Fertilizer needed this week?",
+    "tell": "Tell us what you did today",
+    "mark_done": "Mark as Done",
+    "yearly_progress": "Yearly Progress – {0}%",
+    "growing": "🌱 Growing",
+    "visual_insights": "Visual Insights",
+    "crop_health": "Crop Health"
+  },
+  "common": {
+    "next": "Next",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "toast": {
+    "done": "Great job! ✅"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "empty": "Leaderboard will appear here soon."
+  },
+  "updates": { "title": "Market & Weather Updates" },
+  "progress": { "roadmap": "Progress Roadmap" },
+  "notif": { "sample": "Sample notification item" },
+  "common": { "view_all": "View all", "dismiss": "DISMISS", "next": "Next" },
+  "task": { "priority": "Priority: {p}", "mark_done": "Mark done" },
+  "roadmap": { "generate": "Generate roadmap" }
+  ,
+  "roadmap": {
+    "generate": "Generate roadmap",
+    "create_title": "Create your farming roadmap",
+    "create_sub": "Get a tailored plan from sowing to harvest based on your farm profile, weather, and market trends.",
+    "sowing": "Sowing",
+    "growth": "Growth",
+    "fertilizing": "Fertilizing",
+    "harvesting": "Harvesting"
+  },
+  "task": { "priority": "Priority: {p}", "mark_done": "Mark done" },
+  "voice": { "started": "Voice recording started" },
+  "chatbot": {
+    "name": "KisanSahay",
+    "welcome_message": "Hello! How can I help with your farm today?",
+    "search_hint": "Ask about weather, tasks, policies...",
+    "send": "Send"
+  },
+  "market": {
+    "price_trends": "Mandi Price Trends",
+    "region": "Kerala & Neighboring States",
+    "crops": {
+      "rice_basmati": "Rice (Basmati)",
+      "coconut": "Coconut",
+      "spices_cardamom": "Spices (Cardamom)",
+      "rubber": "Rubber",
+      "tea": "Tea"
+    },
+    "tip": "💡 Tip: Rice prices are trending up - good time for harvest planning!"
+  },
+  "weather": {
+    "conditions": {
+      "sunny": "Sunny",
+      "rainy": "Rainy",
+      "cloudy": "Cloudy"
+    },
+    "tips": {
+      "rain": "🌧️ Rain expected! Perfect for {phase}. Consider soil moisture monitoring.",
+      "sun": "☀️ Sunny weather ideal for {phase}. Ensure proper irrigation schedule.",
+      "default": "🌤️ Good weather for {phase}. Monitor soil conditions regularly."
+    }
+  },
+  "sustainability": {
+    "title": "Sustainable Practice Tip",
+    "today_task": "Today's Task",
+    "current_task": "Current Task: {task}",
+    "setup_message": "Complete your roadmap setup to get personalized sustainability tips!",
+    "tips": {
+      "irrigation": "💧 Use drip irrigation to save 30% water. Consider rainwater harvesting for sustainable water management.",
+      "pest": "🐛 Implement integrated pest management with beneficial insects. Use neem oil as natural pesticide.",
+      "fertilizer": "🌱 Use compost and organic fertilizers. Create your own compost from kitchen waste and farm residues.",
+      "default": "🌍 Practice crop rotation and intercropping for soil health. Use cover crops to prevent soil erosion."
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "questions": {
+      "weather": "What's the weather forecast for my crops?",
+      "irrigation": "How often should I water my crops?",
+      "fertilizer": "What fertilizer should I use for my crops?",
+      "pest_control": "How can I control pests naturally?",
+      "harvest": "When is the best time to harvest?",
+      "soil_health": "How can I improve my soil health?",
+      "crop_rotation": "What is crop rotation and why is it important?",
+      "government_schemes": "What government schemes are available for farmers?",
+      "market_prices": "How can I check current market prices?",
+      "disease_detection": "How can I detect plant diseases early?"
+    },
+    "answers": {
+      "weather": "🌤️ Check the weather forecast in the app's weather section. For crops, monitor temperature, rainfall, and humidity. Rainy weather is good for irrigation, while sunny weather helps with growth and ripening.",
+      "irrigation": "💧 Water frequency depends on crop type, soil, and weather. Generally, water when top 2-3 inches of soil is dry. Use drip irrigation for efficiency and water conservation.",
+      "fertilizer": "🌱 Use organic fertilizers like compost and manure. For chemical fertilizers, follow soil test recommendations. Apply fertilizers during active growth periods for best results.",
+      "pest_control": "🐛 Use natural methods: neem oil, beneficial insects, crop rotation, and proper spacing. Avoid chemical pesticides when possible. Monitor crops regularly for early pest detection.",
+      "harvest": "🌾 Harvest timing varies by crop. Look for maturity signs: color change, size, and texture. Harvest in early morning for better quality. Check market prices before harvesting.",
+      "soil_health": "🌍 Improve soil with organic matter, crop rotation, cover crops, and proper pH balance. Test soil regularly and add nutrients as needed. Avoid over-tilling.",
+      "crop_rotation": "🔄 Crop rotation prevents soil depletion and pest buildup. Rotate between different plant families. Plan 3-4 year rotation cycles for best results.",
+      "government_schemes": "🏛️ Check the Policy Dashboard for available schemes like PM-KISAN, crop insurance, irrigation subsidies, and seed distribution programs. Apply online through government portals.",
+      "market_prices": "📈 Use the Market Updates section to check current prices. Prices vary by location and season. Plan your harvest timing based on market trends and demand.",
+      "disease_detection": "🔍 Use the Disease Detection feature to scan plant images. Look for spots, discoloration, wilting, or unusual growth. Early detection helps prevent spread."
+    }
+  },
+  "organic": {
+    "title": "Trending Organic Solutions",
+    "neem_pesticides": "🌱 Neem-based pesticides trending for pest control",
+    "compost_tea": "🥬 Compost tea gaining popularity for soil health"
+  },
+  "calendar": {
+    "title": "Calendar",
+    "no_task": "No task for this day",
+    "mark_done": "Mark done",
+    "previous_month": "Previous month",
+    "next_month": "Next month",
+    "scroll_left": "Scroll left",
+    "scroll_right": "Scroll right",
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "top_10": "Top 10 Leaderboard",
+    "your_position": "Your Position",
+    "points": "points",
+    "empty": "Leaderboard will appear here soon."
+  },
+  "notifications": {
+    "policy": "Policy",
+    "weather": "Weather",
+    "disaster": "Disaster"
+  },
+  "weather": {
+    "conditions": {
+      "sunny": "Sunny",
+      "rainy": "Rainy",
+      "cloudy": "Cloudy",
+      "unknown": "Unknown"
+    },
+    "no_advice": "No advice available"
+  }
+}
