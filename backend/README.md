@@ -1,167 +1,147 @@
 # Farmer Assistant Backend API
 
-Node.js/Express backend server for the Farmer Assistant mobile application.
+A comprehensive Node.js backend API for the Farmer Assistant application, providing integration with Bhashini API, Weather APIs, and Mandi APIs.
 
-## 🚀 Quick Start
+## Features
 
-### Prerequisites
-- Node.js 16+
-- npm or yarn
+- 🌤️ **Weather API Integration** - Real-time weather data and forecasts
+- 🗣️ **Bhashini API Integration** - Translation and Text-to-Speech services
+- 🌾 **Mandi API Integration** - Market prices and trends
+- 📊 **Caching System** - Intelligent caching for better performance
+- 🔄 **Error Handling** - Robust error handling with fallbacks
+- 📱 **RESTful APIs** - Clean and consistent API endpoints
 
-### Installation
+## API Endpoints
+
+### Weather APIs
+- `GET /api/v1/weather?lat={lat}&lng={lng}` - Get current weather and forecast
+- `GET /api/v1/weather/alerts?lat={lat}&lng={lng}` - Get weather alerts
+
+### Bhashini APIs
+- `POST /api/v1/translate` - Translate text between languages
+- `POST /api/v1/tts` - Convert text to speech
+
+### Mandi APIs
+- `GET /api/v1/mandi/prices?state={state}&district={district}&crop={crop}` - Get market prices
+- `GET /api/v1/mandi/trends?crop={crop}&state={state}&days={days}` - Get market trends
+
+### Existing APIs
+- `GET /api/v1/profile` - Get user and farm profile
+- `GET /api/v1/tasks` - Get farming tasks
+- `GET /api/v1/policies` - Get government policies
+- `GET /api/v1/leaderboard` - Get leaderboard data
+- `POST /api/v1/tasks/mark` - Mark task as complete
+- `POST /api/v1/detect-disease` - Disease detection
+
+## Environment Variables
+
+Create a `.env` file in the backend directory with the following variables:
+
+```env
+# Server Configuration
+PORT=4000
+
+# API Keys
+BHASHINI_API_KEY=your-bhashini-api-key-here
+OPENWEATHER_API_KEY=your-openweather-api-key-here
+MANDI_API_KEY=your-mandi-api-key-here
+
+# Cache Configuration
+WEATHER_CACHE_TTL=1800000
+MANDI_CACHE_TTL=3600000
+TRANSLATION_CACHE_TTL=86400000
+
+# API Timeouts (in milliseconds)
+API_TIMEOUT=10000
+TTS_TIMEOUT=15000
+
+# Logging
+LOG_LEVEL=info
+```
+
+## Installation
+
+1. Install dependencies:
 ```bash
 npm install
 ```
 
-### Development
+2. Create a `.env` file with your API keys
+
+3. Start the development server:
 ```bash
 npm run dev
 ```
 
-### Production
+4. Start the production server:
 ```bash
 npm start
 ```
 
-## 📡 API Endpoints
+## API Usage Examples
 
-### Health Check
-- `GET /health` - Server health status
-
-### Weather
-- `GET /api/v1/weather?lat={lat}&lng={lng}` - Get weather data
-
-### Policies
-- `GET /api/v1/policies?query={query}&state={state}&crop={crop}` - Search policies
-
-### Tasks
-- `POST /api/v1/tasks/mark` - Mark task as complete
-
-### Disease Detection
-- `POST /api/v1/detect-disease` - Upload image for disease analysis
-
-### Leaderboard
-- `GET /api/v1/leaderboard?scope={scope}&id={id}` - Get leaderboard
-
-## 🔧 Environment Variables
-
-Create `.env` file:
-```
-PORT=4000
-NODE_ENV=development
-```
-
-## 📦 Dependencies
-
-- **express**: Web framework
-- **cors**: Cross-origin resource sharing
-- **multer**: File upload handling
-- **dotenv**: Environment variable management
-
-## 🏗️ Project Structure
-
-```
-backend/
-├── index.js          # Main server file
-├── routes/           # API route definitions
-├── controllers/      # Business logic
-├── data/             # Mock data
-├── utils/            # Utility functions
-└── package.json      # Dependencies
-```
-
-## 🔒 Security
-
-- CORS enabled for cross-origin requests
-- Input validation and sanitization
-- Rate limiting (to be implemented)
-- Authentication middleware (to be implemented)
-
-## 🧪 Testing
-
+### Weather API
 ```bash
-npm test
+curl "http://localhost:4000/api/v1/weather?lat=30.9010&lng=75.8573"
 ```
 
-## 📊 Monitoring
-
-- Health check endpoint for monitoring
-- Error logging and handling
-- Request/response logging (to be implemented)
-
-## 🚀 Deployment
-
-### Docker
+### Translation API
 ```bash
-docker build -t farmer-assistant-backend .
-docker run -p 4000:4000 farmer-assistant-backend
+curl -X POST "http://localhost:4000/api/v1/translate" \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Hello", "sourceLang": "en", "targetLang": "hi"}'
 ```
 
-### Cloud Deployment
-- AWS EC2/ECS
-- Google Cloud Run
-- Azure App Service
-- Heroku
-
-## 📝 API Documentation
-
-### Request/Response Examples
-
-#### Weather API
+### Mandi Prices API
 ```bash
-GET /api/v1/weather?lat=30.9010&lng=75.8573
+curl "http://localhost:4000/api/v1/mandi/prices?state=Punjab&district=Ludhiana&crop=Wheat"
+```
 
-Response:
+## Caching
+
+The API implements intelligent caching for:
+- Weather data (30 minutes TTL)
+- Mandi prices (1 hour TTL)
+- Translations (24 hours TTL)
+
+Cache cleanup runs automatically every hour.
+
+## Error Handling
+
+- All APIs include comprehensive error handling
+- Fallback to mock data when external APIs fail
+- Proper HTTP status codes and error messages
+- Timeout protection for external API calls
+
+## Health Check
+
+Check API health at: `GET /health`
+
+Returns:
+```json
 {
-  "lat": 30.9010,
-  "lng": 75.8573,
-  "current": {
-    "tempC": 30,
-    "condition": "Sunny",
-    "advice": "Light irrigation suggested"
-  },
-  "forecast": [
-    {
-      "day": "Mon",
-      "tempC": 31,
-      "condition": "Sunny"
-    }
-  ]
+  "ok": true,
+  "service": "farmer-assistant-backend",
+  "timestamp": "2024-01-01T00:00:00.000Z",
+  "cache": {
+    "weather": 5,
+    "mandi": 3,
+    "translations": 10
+  }
 }
 ```
 
-#### Disease Detection API
-```bash
-POST /api/v1/detect-disease
-Content-Type: multipart/form-data
+## Development
 
-Response:
-{
-  "labels": [
-    {
-      "tag": "leaf_blight",
-      "confidence": 0.82
-    }
-  ],
-  "remedies": [
-    {
-      "type": "organic",
-      "steps": ["Neem spray 3%", "Isolate infected leaves"],
-      "dosage": "2 L/acre"
-    }
-  ]
-}
-```
+- Uses ES6 modules
+- Includes nodemon for development
+- Comprehensive logging
+- CORS enabled for frontend integration
 
-## 🔄 Future Enhancements
+## Production Considerations
 
-- [ ] Database integration (PostgreSQL/MongoDB)
-- [ ] Authentication and authorization
-- [ ] Real-time notifications (WebSocket)
-- [ ] File storage (AWS S3/Google Cloud Storage)
-- [ ] Caching layer (Redis)
-- [ ] API rate limiting
-- [ ] Comprehensive logging
-- [ ] Unit and integration tests
-- [ ] API documentation (Swagger)
-- [ ] CI/CD pipeline
+- Set up proper API keys for production
+- Configure rate limiting
+- Set up monitoring and logging
+- Use a proper database for persistent storage
+- Implement authentication and authorization
