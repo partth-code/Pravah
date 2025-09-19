@@ -59,6 +59,22 @@ class StateService extends ChangeNotifier {
   // Bootstrap from backend
   Future<void> bootstrap() async {
     try {
+      // Add a timeout to prevent infinite loading
+      await Future.any([
+        _performBootstrap(),
+        Future.delayed(const Duration(seconds: 5)),
+      ]);
+    } catch (e) {
+      debugPrint('Bootstrap error: $e');
+    } finally {
+      // Always stop loading screen after timeout or completion
+      _isAppLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> _performBootstrap() async {
+    try {
       // Profile
       final (user, farm) = await _apiService.getProfile();
       _userProfile = user;
@@ -89,11 +105,66 @@ class StateService extends ChangeNotifier {
       _isAppLoading = false;
       notifyListeners();
     } catch (e) {
-      debugPrint('Bootstrap error: $e');
-      // Even on error, stop showing loading screen
+      debugPrint('Bootstrap API error: $e');
+      // Create mock data if API fails
+      _createMockData();
       _isAppLoading = false;
       notifyListeners();
     }
+  }
+
+  void _createMockData() {
+    // Create mock user and farm data
+    _userProfile = UserProfile(
+      userId: 'mock_user',
+      name: 'Farmer Dev',
+      phone: '+91 90000 00000',
+      language: 'en',
+      farmProfileId: 'mock_farm',
+      aadhaarHash: 'XXXX-XXXX-XXXX',
+      uniqueFarmId: 'FARM-123456',
+      uniqueFarmerId: 'FRMR-654321',
+    );
+    
+    _farmProfile = FarmProfile(
+      farmId: 'mock_farm',
+      userId: 'mock_user',
+      state: 'Kerala',
+      district: 'Ernakulam',
+      lat: 9.9816,
+      lng: 76.2999,
+      soilType: 'Loamy',
+      area: 2.5,
+      waterLevel: 'Medium',
+      primaryCrop: 'Rice',
+    );
+
+    // Create mock tasks
+    _tasks = [
+      Task(
+        taskId: 'task_1',
+        title: 'Irrigation Check',
+        description: 'Check irrigation system',
+        points: 10,
+        status: 'pending',
+        dueDate: DateTime.now().add(const Duration(days: 1)),
+        category: 'irrigation',
+      ),
+      Task(
+        taskId: 'task_2',
+        title: 'Soil Testing',
+        description: 'Test soil pH levels',
+        points: 15,
+        status: 'pending',
+        dueDate: DateTime.now().add(const Duration(days: 3)),
+        category: 'soil',
+      ),
+    ];
+
+    _totalPoints = _tasks.fold<int>(0, (p, t) => p + t.points);
+    _weeklyStreak = 5;
+    
+    debugPrint('Created mock data for offline mode');
   }
 
   // Weather methods

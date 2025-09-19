@@ -60,7 +60,7 @@ class FarmerAssistantApp extends StatelessWidget {
               },
               child: stateService.isAppLoading 
                   ? const LoadingScreen(key: ValueKey('loading'))
-                  : const AppShell(key: ValueKey('app')),
+                  : AppShell(key: const ValueKey('app')),
             ),
             locale: context.locale,
             supportedLocales: context.supportedLocales,
