@@ -97,7 +97,7 @@ class StateService extends ChangeNotifier {
       await fetchWeather();
 
       // Policies
-      await fetchPolicies();
+      await fetchPolicies(language: 'en');
 
       // Leaderboard
       await fetchLeaderboard();

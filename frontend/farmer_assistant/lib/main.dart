@@ -144,7 +144,8 @@ class _AppShellState extends State<AppShell> with TickerProviderStateMixin {
           policy.PolicyScreen(
             policies: stateService.policies,
             loading: stateService.policiesLoading,
-            onSearch: (query) => stateService.fetchPolicies(query: query),
+            onSearch: (query) => stateService.fetchPolicies(query: query, language: context.locale.languageCode),
+            language: context.locale.languageCode,
           ),
           UpdatesScreen(),
           DiseaseDetectionScreen(),
