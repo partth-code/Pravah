@@ -227,12 +227,24 @@ class LeaderboardEntry {
   final String name;
   final int points;
   final int rank;
+  final String level;
+  final String badge;
+  final String village;
+  final String state;
+  final int tasksCompleted;
+  final int streak;
 
   LeaderboardEntry({
     required this.userId,
     required this.name,
     required this.points,
     required this.rank,
+    required this.level,
+    required this.badge,
+    required this.village,
+    required this.state,
+    required this.tasksCompleted,
+    required this.streak,
   });
 
   factory LeaderboardEntry.fromJson(Map<String, dynamic> json) {
@@ -241,6 +253,12 @@ class LeaderboardEntry {
       name: json['name'] ?? '',
       points: json['points'] ?? 0,
       rank: json['rank'] ?? 0,
+      level: json['level'] ?? '',
+      badge: json['badge'] ?? '',
+      village: json['village'] ?? '',
+      state: json['state'] ?? '',
+      tasksCompleted: json['tasksCompleted'] ?? 0,
+      streak: json['streak'] ?? 0,
     );
   }
 }

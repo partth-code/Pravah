@@ -161,6 +161,101 @@ class StateService extends ChangeNotifier {
       ),
     ];
 
+    // Create mock policies
+    _policies = [
+      Policy(
+        policyId: 'p1',
+        title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
+        description: 'Direct income support of ₹6,000 per year to all landholding farmer families',
+        eligibility: 'All landholding farmer families',
+        requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Mobile Number'],
+        states: ['All States', 'All Union Territories'],
+        tags: ['Income Support', 'Direct Benefit Transfer', 'Central Scheme'],
+      ),
+      Policy(
+        policyId: 'p2',
+        title: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
+        description: 'Crop insurance scheme to provide financial support to farmers in case of crop failure',
+        eligibility: 'All farmers growing notified crops',
+        requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Crop Details'],
+        states: ['All States', 'All Union Territories'],
+        tags: ['Crop Insurance', 'Risk Management', 'Central Scheme'],
+      ),
+      Policy(
+        policyId: 'p3',
+        title: 'Soil Health Card Scheme',
+        description: 'Issue soil health cards to farmers every 2 years with crop-wise recommendations',
+        eligibility: 'All farmers',
+        requiredDocs: ['Aadhaar Card', 'Land Records', 'Soil Sample'],
+        states: ['All States', 'All Union Territories'],
+        tags: ['Soil Health', 'Scientific Farming', 'Central Scheme'],
+      ),
+    ];
+
+    // Create mock leaderboard
+    _leaderboard = [
+      LeaderboardEntry(
+        userId: 'u1',
+        name: 'Ravi Kumar',
+        points: 1250,
+        rank: 1,
+        level: 'Expert',
+        badge: 'Gold',
+        village: 'Ludhiana Village',
+        state: 'Punjab',
+        tasksCompleted: 45,
+        streak: 12,
+      ),
+      LeaderboardEntry(
+        userId: 'u2',
+        name: 'Lakshmi Devi',
+        points: 1180,
+        rank: 2,
+        level: 'Expert',
+        badge: 'Gold',
+        village: 'Ludhiana Village',
+        state: 'Punjab',
+        tasksCompleted: 42,
+        streak: 8,
+      ),
+      LeaderboardEntry(
+        userId: 'u3',
+        name: 'Aman Singh',
+        points: 1095,
+        rank: 3,
+        level: 'Advanced',
+        badge: 'Silver',
+        village: 'Ludhiana Village',
+        state: 'Punjab',
+        tasksCompleted: 38,
+        streak: 15,
+      ),
+      LeaderboardEntry(
+        userId: 'u4',
+        name: 'Priya Sharma',
+        points: 1020,
+        rank: 4,
+        level: 'Advanced',
+        badge: 'Silver',
+        village: 'Ludhiana Village',
+        state: 'Punjab',
+        tasksCompleted: 35,
+        streak: 6,
+      ),
+      LeaderboardEntry(
+        userId: 'u5',
+        name: 'Rajesh Patel',
+        points: 980,
+        rank: 5,
+        level: 'Intermediate',
+        badge: 'Bronze',
+        village: 'Ludhiana Village',
+        state: 'Punjab',
+        tasksCompleted: 32,
+        streak: 4,
+      ),
+    ];
+
     _totalPoints = _tasks.fold<int>(0, (p, t) => p + t.points);
     _weeklyStreak = 5;
     
