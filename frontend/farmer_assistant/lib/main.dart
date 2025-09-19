@@ -1592,6 +1592,19 @@ class WeatherCard extends StatelessWidget {
     );
   }
 
+  String _getWeatherCondition(String condition) {
+    final lowerCondition = condition.toLowerCase();
+    if (lowerCondition.contains('sun') || lowerCondition.contains('clear')) {
+      return 'weather.conditions.sunny'.tr();
+    } else if (lowerCondition.contains('rain') || lowerCondition.contains('shower')) {
+      return 'weather.conditions.rainy'.tr();
+    } else if (lowerCondition.contains('cloud')) {
+      return 'weather.conditions.cloudy'.tr();
+    } else {
+      return 'weather.conditions.unknown'.tr();
+    }
+  }
+
   IconData _getWeatherIcon(String condition) {
     switch (condition.toLowerCase()) {
       case 'sunny':
