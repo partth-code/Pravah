@@ -6,12 +6,14 @@ class PolicyScreen extends StatefulWidget {
   final List<Policy> policies;
   final bool loading;
   final Function(String) onSearch;
+  final String language;
 
   const PolicyScreen({
     super.key,
     required this.policies,
     required this.loading,
     required this.onSearch,
+    required this.language,
   });
 
   @override
@@ -29,21 +31,33 @@ class _PolicyScreenState extends State<PolicyScreen> {
     _mockSubsidies = [
       Policy(
         policyId: 'sub_001',
-        title: 'Seed Purchase Subsidy',
-        description: 'Get up to 50% subsidy on certified seeds for eligible farmers.',
-        eligibility: 'Smallholder farmers with valid ID',
-        tags: ['Seeds', 'Kharif'],
-        requiredDocs: ['Farmer ID', 'Bank Passbook'],
-        states: ['All States'],
+        title: 'policy.mock_subsidies.seed_purchase.title'.tr(),
+        description: 'policy.mock_subsidies.seed_purchase.description'.tr(),
+        eligibility: 'policy.mock_subsidies.seed_purchase.eligibility'.tr(),
+        tags: [
+          'policy.mock_subsidies.seed_purchase.tags.0'.tr(),
+          'policy.mock_subsidies.seed_purchase.tags.1'.tr(),
+        ],
+        requiredDocs: [
+          'policy.mock_subsidies.seed_purchase.required_docs.0'.tr(),
+          'policy.mock_subsidies.seed_purchase.required_docs.1'.tr(),
+        ],
+        states: ['policy.mock_subsidies.seed_purchase.states.0'.tr()],
       ),
       Policy(
         policyId: 'sub_002',
-        title: 'Drip Irrigation Subsidy',
-        description: 'Financial support for micro-irrigation systems to save water.',
-        eligibility: 'Farmers with up to 5 acres',
-        tags: ['Irrigation', 'Water'],
-        requiredDocs: ['Land Records', 'Aadhaar'],
-        states: ['All States'],
+        title: 'policy.mock_subsidies.drip_irrigation.title'.tr(),
+        description: 'policy.mock_subsidies.drip_irrigation.description'.tr(),
+        eligibility: 'policy.mock_subsidies.drip_irrigation.eligibility'.tr(),
+        tags: [
+          'policy.mock_subsidies.drip_irrigation.tags.0'.tr(),
+          'policy.mock_subsidies.drip_irrigation.tags.1'.tr(),
+        ],
+        requiredDocs: [
+          'policy.mock_subsidies.drip_irrigation.required_docs.0'.tr(),
+          'policy.mock_subsidies.drip_irrigation.required_docs.1'.tr(),
+        ],
+        states: ['policy.mock_subsidies.drip_irrigation.states.0'.tr()],
       ),
     ];
   }

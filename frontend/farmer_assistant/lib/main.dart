@@ -3238,7 +3238,7 @@ class _ChatbotOverlayState extends State<ChatbotOverlay> with TickerProviderStat
       return 'faq.answers.disease_detection'.tr();
     } else {
       // Default response
-      return 'I understand you have a question about farming. You can ask me about weather, irrigation, fertilizers, pest control, harvesting, soil health, crop rotation, government schemes, market prices, or disease detection. How can I help you today?';
+      return 'chatbot.default_response'.tr();
     }
   }
 
@@ -3299,7 +3299,7 @@ class _ChatbotOverlayState extends State<ChatbotOverlay> with TickerProviderStat
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Typing',
+                  'chatbot.typing'.tr(),
                   style: TextStyle(color: Colors.grey[600]),
                 ),
                 const SizedBox(width: 8),

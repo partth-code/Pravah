@@ -55,6 +55,50 @@
       "fill_form": "Fill out online application form",
       "submit": "Submit and note application ID",
       "track_status": "Track status and receive benefits"
+    },
+    "mock_policies": {
+      "pm_kisan": {
+        "title": "Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)",
+        "description": "Direct income support of ₹6,000 per year to all landholding farmer families",
+        "eligibility": "All landholding farmer families",
+        "required_docs": ["Aadhaar Card", "Land Records", "Bank Account Details", "Mobile Number"],
+        "states": ["All States", "All Union Territories"],
+        "tags": ["Income Support", "Direct Benefit Transfer", "Central Scheme"]
+      },
+      "pmfby": {
+        "title": "Pradhan Mantri Fasal Bima Yojana (PMFBY)",
+        "description": "Crop insurance scheme to provide financial support to farmers in case of crop failure",
+        "eligibility": "All farmers growing notified crops",
+        "required_docs": ["Aadhaar Card", "Land Records", "Bank Account Details", "Crop Details"],
+        "states": ["All States", "All Union Territories"],
+        "tags": ["Crop Insurance", "Risk Management", "Central Scheme"]
+      },
+      "soil_health": {
+        "title": "Soil Health Card Scheme",
+        "description": "Issue soil health cards to farmers every 2 years with crop-wise recommendations",
+        "eligibility": "All farmers",
+        "required_docs": ["Aadhaar Card", "Land Records", "Soil Sample"],
+        "states": ["All States", "All Union Territories"],
+        "tags": ["Soil Health", "Scientific Farming", "Central Scheme"]
+      }
+    },
+    "mock_subsidies": {
+      "seed_purchase": {
+        "title": "Seed Purchase Subsidy",
+        "description": "Get up to 50% subsidy on certified seeds for eligible farmers.",
+        "eligibility": "Smallholder farmers with valid ID",
+        "tags": ["Seeds", "Kharif"],
+        "required_docs": ["Farmer ID", "Bank Passbook"],
+        "states": ["All States"]
+      },
+      "drip_irrigation": {
+        "title": "Drip Irrigation Subsidy",
+        "description": "Financial support for micro-irrigation systems to save water.",
+        "eligibility": "Farmers with up to 5 acres",
+        "tags": ["Irrigation", "Water"],
+        "required_docs": ["Land Records", "Aadhaar"],
+        "states": ["All States"]
+      }
     }
   },
   "disease": {
@@ -81,22 +125,24 @@
   "common": {
     "next": "Next",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "view_all": "View all",
+    "dismiss": "DISMISS"
   },
   "toast": {
     "done": "Great job! ✅"
   },
   "leaderboard": {
     "title": "Leaderboard",
+    "top_10": "Top 10 Leaderboard",
+    "your_position": "Your Position",
+    "points": "points",
     "empty": "Leaderboard will appear here soon."
   },
   "updates": { "title": "Market & Weather Updates" },
   "progress": { "roadmap": "Progress Roadmap" },
   "notif": { "sample": "Sample notification item" },
-  "common": { "view_all": "View all", "dismiss": "DISMISS", "next": "Next" },
   "task": { "priority": "Priority: {p}", "mark_done": "Mark done" },
-  "roadmap": { "generate": "Generate roadmap" }
-  ,
   "roadmap": {
     "generate": "Generate roadmap",
     "create_title": "Create your farming roadmap",
@@ -106,13 +152,14 @@
     "fertilizing": "Fertilizing",
     "harvesting": "Harvesting"
   },
-  "task": { "priority": "Priority: {p}", "mark_done": "Mark done" },
   "voice": { "started": "Voice recording started" },
   "chatbot": {
     "name": "KisanSahay",
     "welcome_message": "Hello! How can I help with your farm today?",
     "search_hint": "Ask about weather, tasks, policies...",
-    "send": "Send"
+    "send": "Send",
+    "typing": "Typing",
+    "default_response": "I understand you have a question about farming. You can ask me about weather, irrigation, fertilizers, pest control, harvesting, soil health, crop rotation, government schemes, market prices, or disease detection. How can I help you today?"
   },
   "market": {
     "price_trends": "Mandi Price Trends",
@@ -130,13 +177,15 @@
     "conditions": {
       "sunny": "Sunny",
       "rainy": "Rainy",
-      "cloudy": "Cloudy"
+      "cloudy": "Cloudy",
+      "unknown": "Unknown"
     },
     "tips": {
       "rain": "🌧️ Rain expected! Perfect for {phase}. Consider soil moisture monitoring.",
       "sun": "☀️ Sunny weather ideal for {phase}. Ensure proper irrigation schedule.",
       "default": "🌤️ Good weather for {phase}. Monitor soil conditions regularly."
-    }
+    },
+    "no_advice": "No advice available"
   },
   "sustainability": {
     "title": "Sustainable Practice Tip",
@@ -205,25 +254,9 @@
       "december": "December"
     }
   },
-  "leaderboard": {
-    "title": "Leaderboard",
-    "top_10": "Top 10 Leaderboard",
-    "your_position": "Your Position",
-    "points": "points",
-    "empty": "Leaderboard will appear here soon."
-  },
   "notifications": {
     "policy": "Policy",
     "weather": "Weather",
     "disaster": "Disaster"
-  },
-  "weather": {
-    "conditions": {
-      "sunny": "Sunny",
-      "rainy": "Rainy",
-      "cloudy": "Cloudy",
-      "unknown": "Unknown"
-    },
-    "no_advice": "No advice available"
   }
 }

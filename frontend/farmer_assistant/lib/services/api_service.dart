@@ -55,12 +55,14 @@ class ApiService {
     String query = '',
     String state = '',
     String crop = '',
+    String language = 'en',
   }) async {
     try {
       final response = await _dio.get('/policies', queryParameters: {
         'query': query,
         'state': state,
         'crop': crop,
+        'language': language,
       });
       final results = response.data['results'] as List? ?? [];
       return results.map((e) => Policy.fromJson(e)).toList();

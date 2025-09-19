@@ -390,10 +390,12 @@ app.get('/api/v1/tasks', (req, res) => {
 });
 
 app.get('/api/v1/policies', (req, res) => {
-  const { query = '', state = '', crop = '' } = req.query;
+  const { query = '', state = '', crop = '', language = 'en' } = req.query;
   
-  // Comprehensive mock policies data
-  const allPolicies = [
+  // Localized policy data
+  const getLocalizedPolicies = (lang) => {
+    const policies = {
+      en: [
     {
       policyId: 'p1',
       title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
@@ -435,107 +437,191 @@ app.get('/api/v1/policies', (req, res) => {
       contactInfo: 'Toll-free: 1800-180-1551',
       website: 'https://soilhealth.dac.gov.in',
       status: 'Active'
-    },
-    {
-      policyId: 'p4',
-      title: 'Punjab Kisan Vikas Yojana',
-      description: 'State-specific scheme for agricultural development and farmer welfare',
-      eligibility: 'Farmers in Punjab with landholding up to 5 acres',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Income Certificate'],
-      states: ['Punjab'],
-      tags: ['State Scheme', 'Small Farmers', 'Development'],
-      applicationDeadline: '2024-06-30',
-      benefits: 'Subsidy up to ₹50,000 for farm equipment',
-      contactInfo: 'Punjab Agriculture Department: 0172-2700000',
-      website: 'https://agripunjab.gov.in',
-      status: 'Active'
-    },
-    {
-      policyId: 'p5',
-      title: 'Kerala Organic Farming Mission',
-      description: 'Promote organic farming practices and provide certification support',
-      eligibility: 'Farmers practicing organic farming in Kerala',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Organic Farming Certificate', 'Bank Account Details'],
-      states: ['Kerala'],
-      tags: ['Organic Farming', 'State Scheme', 'Sustainability'],
-      applicationDeadline: '2024-08-31',
-      benefits: 'Certification support, marketing assistance, subsidy up to ₹25,000',
-      contactInfo: 'Kerala Agriculture Department: 0471-2320000',
-      website: 'https://keralaagriculture.gov.in',
-      status: 'Active'
-    },
-    {
-      policyId: 'p6',
-      title: 'Maharashtra Baliraja Krishi Pump Yojana',
-      description: 'Free electricity for agricultural pumps to farmers',
-      eligibility: 'Farmers with agricultural connections in Maharashtra',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Electricity Connection Details'],
-      states: ['Maharashtra'],
-      tags: ['Electricity', 'State Scheme', 'Irrigation'],
-      applicationDeadline: '2024-12-31',
-      benefits: 'Free electricity up to 5 HP for agricultural pumps',
-      contactInfo: 'Maharashtra State Electricity Distribution Co.: 1800-212-3435',
-      website: 'https://www.mahadiscom.in',
-      status: 'Active'
-    },
-    {
-      policyId: 'p7',
-      title: 'Tamil Nadu Free Laptop Scheme for Farmers',
-      description: 'Free laptops to farmers for digital agriculture and online services',
-      eligibility: 'Farmers with landholding up to 2 acres in Tamil Nadu',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Income Certificate'],
-      states: ['Tamil Nadu'],
-      tags: ['Digital India', 'State Scheme', 'Technology'],
-      applicationDeadline: '2024-05-31',
-      benefits: 'Free laptop with pre-installed agricultural software',
-      contactInfo: 'Tamil Nadu Agriculture Department: 044-28520000',
-      website: 'https://www.tn.gov.in',
-      status: 'Active'
-    },
-    {
-      policyId: 'p8',
-      title: 'Gujarat Krishi Mahotsav',
-      description: 'Annual agricultural festival with subsidies and farmer support programs',
-      eligibility: 'All farmers in Gujarat',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details'],
-      states: ['Gujarat'],
-      tags: ['State Scheme', 'Festival', 'Comprehensive Support'],
-      applicationDeadline: '2024-04-30',
-      benefits: 'Multiple subsidies, free seeds, agricultural equipment support',
-      contactInfo: 'Gujarat Agriculture Department: 079-23250000',
-      website: 'https://gujaratagriculture.gov.in',
-      status: 'Active'
-    },
-    {
-      policyId: 'p9',
-      title: 'Rajasthan Mukhyamantri Krishi Saathi Yojana',
-      description: 'Comprehensive agricultural support scheme for small and marginal farmers',
-      eligibility: 'Small and marginal farmers in Rajasthan',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Income Certificate'],
-      states: ['Rajasthan'],
-      tags: ['Small Farmers', 'State Scheme', 'Comprehensive Support'],
-      applicationDeadline: '2024-07-31',
-      benefits: 'Subsidy up to ₹75,000 for farm equipment and inputs',
-      contactInfo: 'Rajasthan Agriculture Department: 0141-2220000',
-      website: 'https://agriculture.rajasthan.gov.in',
-      status: 'Active'
-    },
-    {
-      policyId: 'p10',
-      title: 'Karnataka Raitha Siri Scheme',
-      description: 'Direct benefit transfer for paddy and other crops',
-      eligibility: 'Farmers growing paddy and other notified crops in Karnataka',
-      requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Crop Details'],
-      states: ['Karnataka'],
-      tags: ['Direct Benefit Transfer', 'State Scheme', 'Paddy'],
-      applicationDeadline: '2024-09-30',
-      benefits: '₹5,000 per acre for paddy cultivation',
-      contactInfo: 'Karnataka Agriculture Department: 080-22200000',
-      website: 'https://raitamitra.karnataka.gov.in',
-      status: 'Active'
-    }
-  ];
-
+        }
+      ],
+      hi: [
+        {
+          policyId: 'p1',
+          title: 'प्रधानमंत्री किसान सम्मान निधि (PM-KISAN)',
+          description: 'सभी भूमिधारक किसान परिवारों को प्रति वर्ष ₹6,000 की प्रत्यक्ष आय सहायता',
+          eligibility: 'सभी भूमिधारक किसान परिवार',
+          requiredDocs: ['आधार कार्ड', 'भूमि रिकॉर्ड', 'बैंक खाता विवरण', 'मोबाइल नंबर'],
+          states: ['सभी राज्य', 'सभी केंद्र शासित प्रदेश'],
+          tags: ['आय सहायता', 'प्रत्यक्ष लाभ हस्तांतरण', 'केंद्रीय योजना'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'प्रति वर्ष ₹6,000, प्रत्येक ₹2,000 के 3 किस्तों में',
+          contactInfo: 'टोल-फ्री: 1800-180-1551',
+          website: 'https://pmkisan.gov.in',
+          status: 'सक्रिय'
+        },
+        {
+          policyId: 'p2',
+          title: 'प्रधानमंत्री फसल बीमा योजना (PMFBY)',
+          description: 'फसल खराब होने की स्थिति में किसानों को वित्तीय सहायता प्रदान करने वाली फसल बीमा योजना',
+          eligibility: 'अधिसूचित फसलें उगाने वाले सभी किसान',
+          requiredDocs: ['आधार कार्ड', 'भूमि रिकॉर्ड', 'बैंक खाता विवरण', 'फसल विवरण'],
+          states: ['सभी राज्य', 'सभी केंद्र शासित प्रदेश'],
+          tags: ['फसल बीमा', 'जोखिम प्रबंधन', 'केंद्रीय योजना'],
+          applicationDeadline: '2024-03-31',
+          benefits: '90% तक प्रीमियम सब्सिडी, फसल हानि के लिए मुआवजा',
+          contactInfo: 'टोल-फ्री: 1800-180-1551',
+          website: 'https://pmfby.gov.in',
+          status: 'सक्रिय'
+        },
+        {
+          policyId: 'p3',
+          title: 'मृदा स्वास्थ्य कार्ड योजना',
+          description: 'किसानों को हर 2 साल में फसल-वार सिफारिशों के साथ मृदा स्वास्थ्य कार्ड जारी करना',
+          eligibility: 'सभी किसान',
+          requiredDocs: ['आधार कार्ड', 'भूमि रिकॉर्ड', 'मृदा नमूना'],
+          states: ['सभी राज्य', 'सभी केंद्र शासित प्रदेश'],
+          tags: ['मृदा स्वास्थ्य', 'वैज्ञानिक खेती', 'केंद्रीय योजना'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'मुफ्त मृदा परीक्षण, व्यक्तिगत सिफारिशें',
+          contactInfo: 'टोल-फ्री: 1800-180-1551',
+          website: 'https://soilhealth.dac.gov.in',
+          status: 'सक्रिय'
+        }
+      ],
+      ml: [
+        {
+          policyId: 'p1',
+          title: 'പ്രധാനമന്ത്രി കിസാൻ സമ്മാൻ നിധി (PM-KISAN)',
+          description: 'എല്ലാ ഭൂമി ഉടമ കർഷക കുടുംബങ്ങൾക്കും വർഷത്തിൽ ₹6,000 നേരിട്ടുള്ള വരുമാന പിന്തുണ',
+          eligibility: 'എല്ലാ ഭൂമി ഉടമ കർഷക കുടുംബങ്ങൾ',
+          requiredDocs: ['ആധാർ കാർഡ്', 'ഭൂമി റെക്കോർഡ്', 'ബാങ്ക് അക്കൗണ്ട് വിവരങ്ങൾ', 'മൊബൈൽ നമ്പർ'],
+          states: ['എല്ലാ സംസ്ഥാനങ്ങൾ', 'എല്ലാ കേന്ദ്രഭരണ പ്രദേശങ്ങൾ'],
+          tags: ['വരുമാന പിന്തുണ', 'നേരിട്ടുള്ള ആനുകൂല്യം', 'കേന്ദ്ര പദ്ധതി'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'വർഷത്തിൽ ₹6,000, ഓരോ ₹2,000 എന്ന 3 ഗഡുകളിൽ',
+          contactInfo: 'ടോൾ-ഫ്രീ: 1800-180-1551',
+          website: 'https://pmkisan.gov.in',
+          status: 'സജീവം'
+        },
+        {
+          policyId: 'p2',
+          title: 'പ്രധാനമന്ത്രി ഫസൽ ബിമാ യോജന (PMFBY)',
+          description: 'വിള പരാജയപ്പെടുമ്പോൾ കർഷകർക്ക് സാമ്പത്തിക പിന്തുണ നൽകുന്ന വിള ഇൻഷുറൻസ് പദ്ധതി',
+          eligibility: 'അറിയിപ്പ് വിളകൾ കൃഷി ചെയ്യുന്ന എല്ലാ കർഷകർ',
+          requiredDocs: ['ആധാർ കാർഡ്', 'ഭൂമി റെക്കോർഡ്', 'ബാങ്ക് അക്കൗണ്ട് വിവരങ്ങൾ', 'വിള വിവരങ്ങൾ'],
+          states: ['എല്ലാ സംസ്ഥാനങ്ങൾ', 'എല്ലാ കേന്ദ്രഭരണ പ്രദേശങ്ങൾ'],
+          tags: ['വിള ഇൻഷുറൻസ്', 'റിസ്ക് മാനേജ്മെന്റ്', 'കേന്ദ്ര പദ്ധതി'],
+          applicationDeadline: '2024-03-31',
+          benefits: '90% വരെ പ്രീമിയം സബ്സിഡി, വിള നഷ്ടത്തിന് നഷ്ടപരിഹാരം',
+          contactInfo: 'ടോൾ-ഫ്രീ: 1800-180-1551',
+          website: 'https://pmfby.gov.in',
+          status: 'സജീവം'
+        },
+        {
+          policyId: 'p3',
+          title: 'മണ്ണിന്റെ ആരോഗ്യ കാർഡ് പദ്ധതി',
+          description: 'കർഷകർക്ക് ഓരോ 2 വർഷത്തിലും വിള-വിവര ശുപാർശകളുമായി മണ്ണിന്റെ ആരോഗ്യ കാർഡ് നൽകൽ',
+          eligibility: 'എല്ലാ കർഷകർ',
+          requiredDocs: ['ആധാർ കാർഡ്', 'ഭൂമി റെക്കോർഡ്', 'മണ്ണ് സാമ്പിൾ'],
+          states: ['എല്ലാ സംസ്ഥാനങ്ങൾ', 'എല്ലാ കേന്ദ്രഭരണ പ്രദേശങ്ങൾ'],
+          tags: ['മണ്ണിന്റെ ആരോഗ്യം', 'ശാസ്ത്രീയ കൃഷി', 'കേന്ദ്ര പദ്ധതി'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'സൗജന്യ മണ്ണ് പരിശോധന, വ്യക്തിഗത ശുപാർശകൾ',
+          contactInfo: 'ടോൾ-ഫ്രീ: 1800-180-1551',
+          website: 'https://soilhealth.dac.gov.in',
+          status: 'സജീവം'
+        }
+      ],
+      ta: [
+        {
+          policyId: 'p1',
+          title: 'பிரதமர் கிசான் சம்மான் நிதி (PM-KISAN)',
+          description: 'அனைத்து நில உரிமையாளர் விவசாயி குடும்பங்களுக்கு ஆண்டுக்கு ₹6,000 நேரடி வருமான ஆதரவு',
+          eligibility: 'அனைத்து நில உரிமையாளர் விவசாயி குடும்பங்கள்',
+          requiredDocs: ['ஆதார் அட்டை', 'நில பதிவுகள்', 'வங்கி கணக்கு விவரங்கள்', 'மொபைல் எண்'],
+          states: ['அனைத்து மாநிலங்கள்', 'அனைத்து ஒன்றிய பிரதேசங்கள்'],
+          tags: ['வருமான ஆதரவு', 'நேரடி நன்மை பரிமாற்றம்', 'மத்திய திட்டம்'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'ஆண்டுக்கு ₹6,000, ஒவ்வொன்றும் ₹2,000 என்ற 3 தவணைகளில்',
+          contactInfo: 'டோல்-ஃப்ரீ: 1800-180-1551',
+          website: 'https://pmkisan.gov.in',
+          status: 'செயலில்'
+        },
+        {
+          policyId: 'p2',
+          title: 'பிரதமர் பசல் பிமா யோஜனா (PMFBY)',
+          description: 'பயிர் தோல்வியின் போது விவசாயிகளுக்கு நிதி ஆதரவு வழங்கும் பயிர் காப்பீட்டுத் திட்டம்',
+          eligibility: 'அறிவிக்கப்பட்ட பயிர்களை வளர்க்கும் அனைத்து விவசாயிகள்',
+          requiredDocs: ['ஆதார் அட்டை', 'நில பதிவுகள்', 'வங்கி கணக்கு விவரங்கள்', 'பயிர் விவரங்கள்'],
+          states: ['அனைத்து மாநிலங்கள்', 'அனைத்து ஒன்றிய பிரதேசங்கள்'],
+          tags: ['பயிர் காப்பீடு', 'ஆபத்து மேலாண்மை', 'மத்திய திட்டம்'],
+          applicationDeadline: '2024-03-31',
+          benefits: '90% வரை பிரீமியம் உதவித்தொகை, பயிர் இழப்புக்கு இழப்பீடு',
+          contactInfo: 'டோல்-ஃப்ரீ: 1800-180-1551',
+          website: 'https://pmfby.gov.in',
+          status: 'செயலில்'
+        },
+        {
+          policyId: 'p3',
+          title: 'மண் ஆரோக்கிய அட்டை திட்டம்',
+          description: 'விவசாயிகளுக்கு 2 ஆண்டுகளுக்கு ஒரு முறை பயிர்-வாரிய பரிந்துரைகளுடன் மண் ஆரோக்கிய அட்டைகளை வழங்குதல்',
+          eligibility: 'அனைத்து விவசாயிகள்',
+          requiredDocs: ['ஆதார் அட்டை', 'நில பதிவுகள்', 'மண் மாதிரி'],
+          states: ['அனைத்து மாநிலங்கள்', 'அனைத்து ஒன்றிய பிரதேசங்கள்'],
+          tags: ['மண் ஆரோக்கியம்', 'அறிவியல் விவசாயம்', 'மத்திய திட்டம்'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'இலவச மண் சோதனை, தனிப்பட்ட பரிந்துரைகள்',
+          contactInfo: 'டோல்-ஃப்ரீ: 1800-180-1551',
+          website: 'https://soilhealth.dac.gov.in',
+          status: 'செயலில்'
+        }
+      ],
+      te: [
+        {
+          policyId: 'p1',
+          title: 'ప్రధానమంత్రి కిసాన్ సమ్మాన్ నిధి (PM-KISAN)',
+          description: 'అన్ని భూమి యజమాని రైతు కుటుంబాలకు సంవత్సరానికి ₹6,000 నేరుగా ఆదాయ మద్దతు',
+          eligibility: 'అన్ని భూమి యజమాని రైతు కుటుంబాలు',
+          requiredDocs: ['ఆధార్ కార్డ్', 'భూమి రికార్డులు', 'బ్యాంక్ ఖాతా వివరాలు', 'మొబైల్ నంబర్'],
+          states: ['అన్ని రాష్ట్రాలు', 'అన్ని కేంద్రపాలిత ప్రాంతాలు'],
+          tags: ['ఆదాయ మద్దతు', 'నేరుగా ప్రయోజనం', 'కేంద్ర పథకం'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'సంవత్సరానికి ₹6,000, ఒక్కొక్కటి ₹2,000 చొప్పున 3 వాయిదాలలో',
+          contactInfo: 'టోల్-ఫ్రీ: 1800-180-1551',
+          website: 'https://pmkisan.gov.in',
+          status: 'క్రియాశీల'
+        },
+        {
+          policyId: 'p2',
+          title: 'ప్రధానమంత్రి ఫసల్ బీమా యోజన (PMFBY)',
+          description: 'పంట వైఫల్య సమయంలో రైతులకు ఆర్థిక మద్దతు అందించే పంట బీమా పథకం',
+          eligibility: 'అధిసూచించిన పంటలు పండించే అన్ని రైతులు',
+          requiredDocs: ['ఆధార్ కార్డ్', 'భూమి రికార్డులు', 'బ్యాంక్ ఖాతా వివరాలు', 'పంట వివరాలు'],
+          states: ['అన్ని రాష్ట్రాలు', 'అన్ని కేంద్రపాలిత ప్రాంతాలు'],
+          tags: ['పంట బీమా', 'అపాయ నిర్వహణ', 'కేంద్ర పథకం'],
+          applicationDeadline: '2024-03-31',
+          benefits: '90% వరకు ప్రీమియం సబ్సిడీ, పంట నష్టానికి నష్టపరిహారం',
+          contactInfo: 'టోల్-ఫ్రీ: 1800-180-1551',
+          website: 'https://pmfby.gov.in',
+          status: 'క్రియాశీల'
+        },
+        {
+          policyId: 'p3',
+          title: 'నేల ఆరోగ్య కార్డ్ పథకం',
+          description: 'రైతులకు ప్రతి 2 సంవత్సరాలకు పంట-వారీ సిఫారసులతో నేల ఆరోగ్య కార్డులు జారీ చేయడం',
+          eligibility: 'అన్ని రైతులు',
+          requiredDocs: ['ఆధార్ కార్డ్', 'భూమి రికార్డులు', 'నేల నమూనా'],
+          states: ['అన్ని రాష్ట్రాలు', 'అన్ని కేంద్రపాలిత ప్రాంతాలు'],
+          tags: ['నేల ఆరోగ్యం', 'శాస్త్రీయ వ్యవసాయం', 'కేంద్ర పథకం'],
+          applicationDeadline: '2024-12-31',
+          benefits: 'ఉచిత నేల పరీక్ష, వ్యక్తిగత సిఫారసులు',
+          contactInfo: 'టోల్-ఫ్రీ: 1800-180-1551',
+          website: 'https://soilhealth.dac.gov.in',
+          status: 'క్రియాశీల'
+        }
+      ]
+    };
+    
+    return policies[lang] || policies.en;
+  };
+  
+  const allPolicies = getLocalizedPolicies(language);
+  
   // Filter policies based on query parameters
   let filteredPolicies = allPolicies;
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:easy_localization/easy_localization.dart';
 import '../models/api_models.dart';
 import 'api_service.dart';
 
@@ -161,34 +162,69 @@ class StateService extends ChangeNotifier {
       ),
     ];
 
-    // Create mock policies
+    // Create mock policies using localized content
     _policies = [
       Policy(
         policyId: 'p1',
-        title: 'Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)',
-        description: 'Direct income support of ₹6,000 per year to all landholding farmer families',
-        eligibility: 'All landholding farmer families',
-        requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Mobile Number'],
-        states: ['All States', 'All Union Territories'],
-        tags: ['Income Support', 'Direct Benefit Transfer', 'Central Scheme'],
+        title: 'policy.mock_policies.pm_kisan.title'.tr(),
+        description: 'policy.mock_policies.pm_kisan.description'.tr(),
+        eligibility: 'policy.mock_policies.pm_kisan.eligibility'.tr(),
+        requiredDocs: [
+          'policy.mock_policies.pm_kisan.required_docs.0'.tr(),
+          'policy.mock_policies.pm_kisan.required_docs.1'.tr(),
+          'policy.mock_policies.pm_kisan.required_docs.2'.tr(),
+          'policy.mock_policies.pm_kisan.required_docs.3'.tr(),
+        ],
+        states: [
+          'policy.mock_policies.pm_kisan.states.0'.tr(),
+          'policy.mock_policies.pm_kisan.states.1'.tr(),
+        ],
+        tags: [
+          'policy.mock_policies.pm_kisan.tags.0'.tr(),
+          'policy.mock_policies.pm_kisan.tags.1'.tr(),
+          'policy.mock_policies.pm_kisan.tags.2'.tr(),
+        ],
       ),
       Policy(
         policyId: 'p2',
-        title: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
-        description: 'Crop insurance scheme to provide financial support to farmers in case of crop failure',
-        eligibility: 'All farmers growing notified crops',
-        requiredDocs: ['Aadhaar Card', 'Land Records', 'Bank Account Details', 'Crop Details'],
-        states: ['All States', 'All Union Territories'],
-        tags: ['Crop Insurance', 'Risk Management', 'Central Scheme'],
+        title: 'policy.mock_policies.pmfby.title'.tr(),
+        description: 'policy.mock_policies.pmfby.description'.tr(),
+        eligibility: 'policy.mock_policies.pmfby.eligibility'.tr(),
+        requiredDocs: [
+          'policy.mock_policies.pmfby.required_docs.0'.tr(),
+          'policy.mock_policies.pmfby.required_docs.1'.tr(),
+          'policy.mock_policies.pmfby.required_docs.2'.tr(),
+          'policy.mock_policies.pmfby.required_docs.3'.tr(),
+        ],
+        states: [
+          'policy.mock_policies.pmfby.states.0'.tr(),
+          'policy.mock_policies.pmfby.states.1'.tr(),
+        ],
+        tags: [
+          'policy.mock_policies.pmfby.tags.0'.tr(),
+          'policy.mock_policies.pmfby.tags.1'.tr(),
+          'policy.mock_policies.pmfby.tags.2'.tr(),
+        ],
       ),
       Policy(
         policyId: 'p3',
-        title: 'Soil Health Card Scheme',
-        description: 'Issue soil health cards to farmers every 2 years with crop-wise recommendations',
-        eligibility: 'All farmers',
-        requiredDocs: ['Aadhaar Card', 'Land Records', 'Soil Sample'],
-        states: ['All States', 'All Union Territories'],
-        tags: ['Soil Health', 'Scientific Farming', 'Central Scheme'],
+        title: 'policy.mock_policies.soil_health.title'.tr(),
+        description: 'policy.mock_policies.soil_health.description'.tr(),
+        eligibility: 'policy.mock_policies.soil_health.eligibility'.tr(),
+        requiredDocs: [
+          'policy.mock_policies.soil_health.required_docs.0'.tr(),
+          'policy.mock_policies.soil_health.required_docs.1'.tr(),
+          'policy.mock_policies.soil_health.required_docs.2'.tr(),
+        ],
+        states: [
+          'policy.mock_policies.soil_health.states.0'.tr(),
+          'policy.mock_policies.soil_health.states.1'.tr(),
+        ],
+        tags: [
+          'policy.mock_policies.soil_health.tags.0'.tr(),
+          'policy.mock_policies.soil_health.tags.1'.tr(),
+          'policy.mock_policies.soil_health.tags.2'.tr(),
+        ],
       ),
     ];
 
@@ -328,7 +364,7 @@ class StateService extends ChangeNotifier {
   }
 
   // Policies methods
-  Future<void> fetchPolicies({String query = ''}) async {
+  Future<void> fetchPolicies({String query = '', String language = 'en'}) async {
     _policiesLoading = true;
     notifyListeners();
 
@@ -337,6 +373,7 @@ class StateService extends ChangeNotifier {
         query: query,
         state: _farmProfile?.state ?? '',
         crop: _farmProfile?.primaryCrop ?? '',
+        language: language,
       );
     } catch (e) {
       debugPrint('Policies fetch error: $e');
