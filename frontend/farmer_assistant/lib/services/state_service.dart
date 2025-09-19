@@ -6,6 +6,9 @@ import 'api_service.dart';
 class StateService extends ChangeNotifier {
   final ApiService _apiService = ApiService();
 
+  // App Loading State
+  bool _isAppLoading = true;
+
   // User and Farm Data
   UserProfile? _userProfile;
   FarmProfile? _farmProfile;
@@ -36,6 +39,7 @@ class StateService extends ChangeNotifier {
   List<String> _roadmapMilestones = const [];
 
   // Getters
+  bool get isAppLoading => _isAppLoading;
   UserProfile? get userProfile => _userProfile;
   FarmProfile? get farmProfile => _farmProfile;
   WeatherData? get weatherData => _weatherData;
@@ -80,8 +84,15 @@ class StateService extends ChangeNotifier {
 
       // Leaderboard
       await fetchLeaderboard();
+      
+      // App loading complete
+      _isAppLoading = false;
+      notifyListeners();
     } catch (e) {
       debugPrint('Bootstrap error: $e');
+      // Even on error, stop showing loading screen
+      _isAppLoading = false;
+      notifyListeners();
     }
   }
 

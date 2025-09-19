@@ -13,6 +13,7 @@ import 'screens/profile_screen.dart';
 import 'screens/policy_screen.dart' as policy;
 import 'screens/disease_detection_screen.dart';
 import 'widgets/calendar_dropdown.dart';
+import 'widgets/loading_screen.dart';
 import 'models/api_models.dart';
 
 void main() async {
@@ -35,13 +36,37 @@ class FarmerAssistantApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => StateService()..bootstrap(),
-      child: MaterialApp(
-        title: 'Farmer Assistant',
-        theme: AppTheme.light(),
-        home: const AppShell(),
-        locale: context.locale,
-        supportedLocales: context.supportedLocales,
-        localizationsDelegates: context.localizationDelegates,
+      child: Consumer<StateService>(
+        builder: (context, stateService, child) {
+          return MaterialApp(
+            title: 'Farmer Assistant',
+            theme: AppTheme.light(),
+            home: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 800),
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(
+                  opacity: animation,
+                  child: SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(0.0, 0.1),
+                      end: Offset.zero,
+                    ).animate(CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeOutCubic,
+                    )),
+                    child: child,
+                  ),
+                );
+              },
+              child: stateService.isAppLoading 
+                  ? const LoadingScreen(key: ValueKey('loading'))
+                  : const AppShell(key: ValueKey('app')),
+            ),
+            locale: context.locale,
+            supportedLocales: context.supportedLocales,
+            localizationsDelegates: context.localizationDelegates,
+          );
+        },
       ),
     );
   }
