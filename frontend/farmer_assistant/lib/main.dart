@@ -41,6 +41,7 @@ class FarmerAssistantApp extends StatelessWidget {
           return MaterialApp(
             title: 'Farmer Assistant',
             theme: AppTheme.light(),
+            debugShowCheckedModeBanner: false,
             home: AnimatedSwitcher(
               duration: const Duration(milliseconds: 800),
               transitionBuilder: (Widget child, Animation<double> animation) {

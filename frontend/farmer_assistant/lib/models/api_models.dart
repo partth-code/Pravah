@@ -71,6 +71,11 @@ class Policy {
   final List<String> requiredDocs;
   final List<String> states;
   final List<String> tags;
+  final String? applicationDeadline;
+  final String? benefits;
+  final String? contactInfo;
+  final String? website;
+  final String? status;
 
   Policy({
     required this.policyId,
@@ -80,6 +85,11 @@ class Policy {
     required this.requiredDocs,
     required this.states,
     required this.tags,
+    this.applicationDeadline,
+    this.benefits,
+    this.contactInfo,
+    this.website,
+    this.status,
   });
 
   factory Policy.fromJson(Map<String, dynamic> json) {
@@ -91,6 +101,11 @@ class Policy {
       requiredDocs: List<String>.from(json['requiredDocs'] ?? []),
       states: List<String>.from(json['states'] ?? []),
       tags: List<String>.from(json['tags'] ?? []),
+      applicationDeadline: json['applicationDeadline'],
+      benefits: json['benefits'],
+      contactInfo: json['contactInfo'],
+      website: json['website'],
+      status: json['status'],
     );
   }
 }

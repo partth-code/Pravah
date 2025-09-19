@@ -389,16 +389,78 @@ class StateService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _leaderboard = await _apiService.getLeaderboard(
-        scope: scope,
-        id: _farmProfile?.district ?? 'default',
-      );
+      // Use mock data instead of backend call
+      _leaderboard = _getMockLeaderboardData(scope);
     } catch (e) {
       debugPrint('Leaderboard fetch error: $e');
     } finally {
       _leaderboardLoading = false;
       notifyListeners();
     }
+  }
+
+  List<LeaderboardEntry> _getMockLeaderboardData(String scope) {
+    // Mock leaderboard data based on scope
+    final mockData = {
+      'village': [
+        LeaderboardEntry(
+          userId: 'u1', name: 'Ravi Kumar', points: 1250, rank: 1, level: 'Expert', 
+          badge: 'Gold', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 45, streak: 12,
+        ),
+        LeaderboardEntry(
+          userId: 'u2', name: 'Lakshmi Devi', points: 1180, rank: 2, level: 'Expert', 
+          badge: 'Gold', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 42, streak: 8,
+        ),
+        LeaderboardEntry(
+          userId: 'u3', name: 'Aman Singh', points: 1095, rank: 3, level: 'Advanced', 
+          badge: 'Silver', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 38, streak: 15,
+        ),
+        LeaderboardEntry(
+          userId: 'u4', name: 'Priya Sharma', points: 1020, rank: 4, level: 'Advanced', 
+          badge: 'Silver', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 35, streak: 6,
+        ),
+        LeaderboardEntry(
+          userId: 'u5', name: 'Rajesh Patel', points: 980, rank: 5, level: 'Intermediate', 
+          badge: 'Bronze', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 32, streak: 4,
+        ),
+      ],
+      'district': [
+        LeaderboardEntry(
+          userId: 'd1', name: 'Ravi Kumar', points: 1250, rank: 1, level: 'Expert', 
+          badge: 'Gold', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 45, streak: 12,
+        ),
+        LeaderboardEntry(
+          userId: 'd2', name: 'Lakshmi Devi', points: 1180, rank: 2, level: 'Expert', 
+          badge: 'Gold', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 42, streak: 8,
+        ),
+        LeaderboardEntry(
+          userId: 'd3', name: 'Aman Singh', points: 1095, rank: 3, level: 'Advanced', 
+          badge: 'Silver', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 38, streak: 15,
+        ),
+      ],
+      'state': [
+        LeaderboardEntry(
+          userId: 's1', name: 'Ravi Kumar', points: 1250, rank: 1, level: 'Expert', 
+          badge: 'Gold', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 45, streak: 12,
+        ),
+        LeaderboardEntry(
+          userId: 's2', name: 'Lakshmi Devi', points: 1180, rank: 2, level: 'Expert', 
+          badge: 'Gold', village: 'Ludhiana Village', state: 'Punjab', 
+          tasksCompleted: 42, streak: 8,
+        ),
+      ],
+    };
+
+    return mockData[scope] ?? mockData['village']!;
   }
 
   // Disease detection
