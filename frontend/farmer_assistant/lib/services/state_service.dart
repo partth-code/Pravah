@@ -143,21 +143,21 @@ class StateService extends ChangeNotifier {
     _tasks = [
       Task(
         taskId: 'task_1',
+        farmId: 'mock_farm',
         title: 'Irrigation Check',
-        description: 'Check irrigation system',
         points: 10,
         status: 'pending',
-        dueDate: DateTime.now().add(const Duration(days: 1)),
-        category: 'irrigation',
+        date: DateTime.now().add(const Duration(days: 1)),
+        priority: 'high',
       ),
       Task(
         taskId: 'task_2',
+        farmId: 'mock_farm',
         title: 'Soil Testing',
-        description: 'Test soil pH levels',
         points: 15,
         status: 'pending',
-        dueDate: DateTime.now().add(const Duration(days: 3)),
-        category: 'soil',
+        date: DateTime.now().add(const Duration(days: 3)),
+        priority: 'medium',
       ),
     ];
 
