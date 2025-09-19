@@ -607,7 +607,18 @@ class _GamificationScreenState extends State<GamificationScreen> {
           (e) => e.userId == meId,
           orElse: () => entries.isNotEmpty
               ? entries.last
-              : LeaderboardEntry(userId: meId, name: state.userProfile?.name ?? 'You', points: state.totalPoints, rank: 0),
+              : LeaderboardEntry(
+                  userId: meId, 
+                  name: state.userProfile?.name ?? 'You', 
+                  points: state.totalPoints, 
+                  rank: 0,
+                  level: 'Beginner',
+                  badge: 'Rising',
+                  village: state.farmProfile?.district ?? 'Unknown',
+                  state: state.farmProfile?.state ?? 'Unknown',
+                  tasksCompleted: state.tasks.where((t) => t.status == 'done').length,
+                  streak: state.weeklyStreak,
+                ),
         );
 
         return Scaffold(
