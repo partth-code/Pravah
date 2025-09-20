@@ -1,11 +1,11 @@
 {
-    "name": "farmer_assistant",
-    "short_name": "farmer_assistant",
+    "name": "Pravah",
+    "short_name": "Pravah",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Pravah - Your Digital Farming Assistant",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

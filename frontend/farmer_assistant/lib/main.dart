@@ -39,7 +39,7 @@ class FarmerAssistantApp extends StatelessWidget {
       child: Consumer<StateService>(
         builder: (context, stateService, child) {
           return MaterialApp(
-            title: 'Farmer Assistant',
+            title: 'Pravah',
             theme: AppTheme.light(),
             debugShowCheckedModeBanner: false,
             home: AnimatedSwitcher(

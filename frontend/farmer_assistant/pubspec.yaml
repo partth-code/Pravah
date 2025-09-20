@@ -1,5 +1,5 @@
-name: farmer_assistant
-description: "A new Flutter project."
+name: pravah
+description: "Pravah - Your Digital Farming Assistant"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -71,12 +71,13 @@ flutter:
     - assets/svg/
     - assets/translations/
 
-flutter_icons:
+flutter_launcher_icons:
   android: true
   ios: true
   image_path: assets/app_icon.png
-  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_background: "#4CAF50"
   adaptive_icon_foreground: assets/app_icon.png
+  min_sdk_android: 21
 
   # To add assets to your application, add an assets section, like this:
   # assets:

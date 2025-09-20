@@ -63,6 +63,44 @@ class _PolicyScreenState extends State<PolicyScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Update mock subsidies when language changes
+    _mockSubsidies = [
+      Policy(
+        policyId: 'sub_001',
+        title: 'policy.mock_subsidies.seed_purchase.title'.tr(),
+        description: 'policy.mock_subsidies.seed_purchase.description'.tr(),
+        eligibility: 'policy.mock_subsidies.seed_purchase.eligibility'.tr(),
+        tags: [
+          'policy.mock_subsidies.seed_purchase.tags.0'.tr(),
+          'policy.mock_subsidies.seed_purchase.tags.1'.tr(),
+        ],
+        requiredDocs: [
+          'policy.mock_subsidies.seed_purchase.required_docs.0'.tr(),
+          'policy.mock_subsidies.seed_purchase.required_docs.1'.tr(),
+        ],
+        states: ['policy.mock_subsidies.seed_purchase.states.0'.tr()],
+      ),
+      Policy(
+        policyId: 'sub_002',
+        title: 'policy.mock_subsidies.drip_irrigation.title'.tr(),
+        description: 'policy.mock_subsidies.drip_irrigation.description'.tr(),
+        eligibility: 'policy.mock_subsidies.drip_irrigation.eligibility'.tr(),
+        tags: [
+          'policy.mock_subsidies.drip_irrigation.tags.0'.tr(),
+          'policy.mock_subsidies.drip_irrigation.tags.1'.tr(),
+        ],
+        requiredDocs: [
+          'policy.mock_subsidies.drip_irrigation.required_docs.0'.tr(),
+          'policy.mock_subsidies.drip_irrigation.required_docs.1'.tr(),
+        ],
+        states: ['policy.mock_subsidies.drip_irrigation.states.0'.tr()],
+      ),
+    ];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
