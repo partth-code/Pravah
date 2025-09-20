@@ -96,8 +96,8 @@ class StateService extends ChangeNotifier {
       // Weather
       await fetchWeather();
 
-      // Policies
-      await fetchPolicies(language: 'en');
+      // Policies - use mock data
+      _policies = _getMockPoliciesData('', 'en');
 
       // Leaderboard
       await fetchLeaderboard();
@@ -162,71 +162,8 @@ class StateService extends ChangeNotifier {
       ),
     ];
 
-    // Create mock policies using localized content
-    _policies = [
-      Policy(
-        policyId: 'p1',
-        title: 'policy.mock_policies.pm_kisan.title'.tr(),
-        description: 'policy.mock_policies.pm_kisan.description'.tr(),
-        eligibility: 'policy.mock_policies.pm_kisan.eligibility'.tr(),
-        requiredDocs: [
-          'policy.mock_policies.pm_kisan.required_docs.0'.tr(),
-          'policy.mock_policies.pm_kisan.required_docs.1'.tr(),
-          'policy.mock_policies.pm_kisan.required_docs.2'.tr(),
-          'policy.mock_policies.pm_kisan.required_docs.3'.tr(),
-        ],
-        states: [
-          'policy.mock_policies.pm_kisan.states.0'.tr(),
-          'policy.mock_policies.pm_kisan.states.1'.tr(),
-        ],
-        tags: [
-          'policy.mock_policies.pm_kisan.tags.0'.tr(),
-          'policy.mock_policies.pm_kisan.tags.1'.tr(),
-          'policy.mock_policies.pm_kisan.tags.2'.tr(),
-        ],
-      ),
-      Policy(
-        policyId: 'p2',
-        title: 'policy.mock_policies.pmfby.title'.tr(),
-        description: 'policy.mock_policies.pmfby.description'.tr(),
-        eligibility: 'policy.mock_policies.pmfby.eligibility'.tr(),
-        requiredDocs: [
-          'policy.mock_policies.pmfby.required_docs.0'.tr(),
-          'policy.mock_policies.pmfby.required_docs.1'.tr(),
-          'policy.mock_policies.pmfby.required_docs.2'.tr(),
-          'policy.mock_policies.pmfby.required_docs.3'.tr(),
-        ],
-        states: [
-          'policy.mock_policies.pmfby.states.0'.tr(),
-          'policy.mock_policies.pmfby.states.1'.tr(),
-        ],
-        tags: [
-          'policy.mock_policies.pmfby.tags.0'.tr(),
-          'policy.mock_policies.pmfby.tags.1'.tr(),
-          'policy.mock_policies.pmfby.tags.2'.tr(),
-        ],
-      ),
-      Policy(
-        policyId: 'p3',
-        title: 'policy.mock_policies.soil_health.title'.tr(),
-        description: 'policy.mock_policies.soil_health.description'.tr(),
-        eligibility: 'policy.mock_policies.soil_health.eligibility'.tr(),
-        requiredDocs: [
-          'policy.mock_policies.soil_health.required_docs.0'.tr(),
-          'policy.mock_policies.soil_health.required_docs.1'.tr(),
-          'policy.mock_policies.soil_health.required_docs.2'.tr(),
-        ],
-        states: [
-          'policy.mock_policies.soil_health.states.0'.tr(),
-          'policy.mock_policies.soil_health.states.1'.tr(),
-        ],
-        tags: [
-          'policy.mock_policies.soil_health.tags.0'.tr(),
-          'policy.mock_policies.soil_health.tags.1'.tr(),
-          'policy.mock_policies.soil_health.tags.2'.tr(),
-        ],
-      ),
-    ];
+    // Create mock policies using comprehensive data
+    _policies = _getMockPoliciesData('', 'en');
 
     // Create mock leaderboard
     _leaderboard = [
@@ -369,18 +306,143 @@ class StateService extends ChangeNotifier {
     notifyListeners();
 
     try {
-      _policies = await _apiService.getPolicies(
-        query: query,
-        state: _farmProfile?.state ?? '',
-        crop: _farmProfile?.primaryCrop ?? '',
-        language: language,
-      );
+      // Use mock data instead of API call
+      _policies = _getMockPoliciesData(query, language);
     } catch (e) {
       debugPrint('Policies fetch error: $e');
     } finally {
       _policiesLoading = false;
       notifyListeners();
     }
+  }
+
+  List<Policy> _getMockPoliciesData(String query, String language) {
+    // Create comprehensive mock policies data
+    final allPolicies = [
+      Policy(
+        policyId: 'p1',
+        title: 'PM Kisan Samman Nidhi',
+        description: 'Direct income support scheme providing ₹6,000 per year to all landholding farmer families across the country.',
+        eligibility: 'All landholding farmer families with cultivable land',
+        requiredDocs: [
+          'Aadhaar Card',
+          'Land Records',
+          'Bank Account Details',
+          'Mobile Number'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Income Support', 'Direct Benefit Transfer', 'Annual Payment'],
+        applicationDeadline: 'Ongoing',
+        benefits: '₹6,000 per year in 3 installments',
+        contactInfo: '1800-180-1551',
+        website: 'https://pmkisan.gov.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p2',
+        title: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
+        description: 'Crop insurance scheme providing financial support to farmers in case of crop failure due to natural calamities.',
+        eligibility: 'All farmers growing notified crops in notified areas',
+        requiredDocs: [
+          'Land Records',
+          'Crop Details',
+          'Bank Account Details',
+          'Aadhaar Card'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Crop Insurance', 'Natural Calamities', 'Premium Subsidy'],
+        applicationDeadline: 'Before sowing season',
+        benefits: 'Up to 100% premium subsidy for small farmers',
+        contactInfo: '1800-180-1551',
+        website: 'https://pmfby.gov.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p3',
+        title: 'Soil Health Card Scheme',
+        description: 'Scheme to provide soil health cards to farmers with recommendations for appropriate use of fertilizers.',
+        eligibility: 'All farmers with agricultural land',
+        requiredDocs: [
+          'Land Records',
+          'Aadhaar Card',
+          'Mobile Number'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Soil Testing', 'Fertilizer Recommendation', 'Sustainable Farming'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Free soil testing and recommendations',
+        contactInfo: '1800-180-1551',
+        website: 'https://soilhealth.dac.gov.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p4',
+        title: 'Kisan Credit Card (KCC)',
+        description: 'Credit card scheme for farmers to meet their short-term credit requirements for cultivation.',
+        eligibility: 'All farmers including tenant farmers and oral lessees',
+        requiredDocs: [
+          'Land Records',
+          'Aadhaar Card',
+          'Bank Account Details',
+          'Income Certificate'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Credit Card', 'Short-term Credit', 'Low Interest'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Up to ₹3 lakh credit at 4% interest',
+        contactInfo: 'Contact nearest bank branch',
+        website: 'https://www.rbi.org.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p5',
+        title: 'Pradhan Mantri Kisan Sampada Yojana',
+        description: 'Scheme for creation of modern infrastructure for food processing sector.',
+        eligibility: 'Food processing units, entrepreneurs, and farmers',
+        requiredDocs: [
+          'Project Proposal',
+          'Land Documents',
+          'Financial Statements',
+          'Technical Details'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Food Processing', 'Infrastructure', 'Modernization'],
+        applicationDeadline: 'As per notification',
+        benefits: 'Up to 50% subsidy on project cost',
+        contactInfo: '1800-180-1551',
+        website: 'https://mofpi.nic.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p6',
+        title: 'National Mission for Sustainable Agriculture',
+        description: 'Mission to promote sustainable agriculture through climate change adaptation and mitigation measures.',
+        eligibility: 'Farmers practicing sustainable agriculture',
+        requiredDocs: [
+          'Land Records',
+          'Crop Details',
+          'Sustainability Practices Documentation'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Sustainable Agriculture', 'Climate Change', 'Environment'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Financial assistance for sustainable practices',
+        contactInfo: '1800-180-1551',
+        website: 'https://nmsa.dac.gov.in',
+        status: 'Active',
+      ),
+    ];
+
+    // Filter policies based on query if provided
+    if (query.isNotEmpty) {
+      return allPolicies.where((policy) {
+        return policy.title.toLowerCase().contains(query.toLowerCase()) ||
+               policy.description.toLowerCase().contains(query.toLowerCase()) ||
+               policy.tags.any((tag) => tag.toLowerCase().contains(query.toLowerCase()));
+      }).toList();
+    }
+
+    return allPolicies;
   }
 
   // Leaderboard methods

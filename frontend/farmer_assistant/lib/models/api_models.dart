@@ -94,18 +94,18 @@ class Policy {
 
   factory Policy.fromJson(Map<String, dynamic> json) {
     return Policy(
-      policyId: json['policyId'] ?? '',
-      title: json['title'] ?? '',
-      description: json['description'] ?? '',
-      eligibility: json['eligibility'] ?? '',
-      requiredDocs: List<String>.from(json['requiredDocs'] ?? []),
-      states: List<String>.from(json['states'] ?? []),
-      tags: List<String>.from(json['tags'] ?? []),
-      applicationDeadline: json['applicationDeadline'],
-      benefits: json['benefits'],
-      contactInfo: json['contactInfo'],
-      website: json['website'],
-      status: json['status'],
+      policyId: json['policyId']?.toString() ?? json['id']?.toString() ?? '',
+      title: json['title']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+      eligibility: json['eligibility']?.toString() ?? '',
+      requiredDocs: (json['requiredDocs'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      states: (json['states'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      tags: (json['tags'] as List?)?.map((e) => e.toString()).toList() ?? [],
+      applicationDeadline: json['applicationDeadline']?.toString(),
+      benefits: json['benefits']?.toString(),
+      contactInfo: json['contactInfo']?.toString(),
+      website: json['website']?.toString(),
+      status: json['status']?.toString(),
     );
   }
 }
