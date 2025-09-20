@@ -69,6 +69,7 @@ flutter:
   assets:
     - assets/lottie/scan.json
     - assets/svg/
+    - assets/images/
     - assets/translations/
 
 flutter_launcher_icons:

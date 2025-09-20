@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/api_models.dart';
+import '../widgets/png_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class PolicyScreen extends StatefulWidget {
@@ -357,10 +358,8 @@ class _PolicyScreenState extends State<PolicyScreen> {
                       color: (isSubsidy ? Colors.amber : Colors.green).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(
-                      Icons.description,
+                    child: const PolicyIcon(
                       color: Colors.green,
-                      size: 24,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -519,7 +518,17 @@ class _PolicyDetailPage extends StatelessWidget {
                     color: Colors.green.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Icon(isSubsidy ? Icons.payments : Icons.policy, color: Colors.green, size: 28),
+                  child: isSubsidy 
+                    ? const SubsidyIcon(
+                        width: 28,
+                        height: 28,
+                        color: Colors.green,
+                      )
+                    : const PolicyIcon(
+                        width: 28,
+                        height: 28,
+                        color: Colors.green,
+                      ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
