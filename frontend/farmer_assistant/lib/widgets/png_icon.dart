@@ -42,6 +42,7 @@ class PngIcon extends StatelessWidget {
 
 // Predefined icon paths for common use cases
 class AppIcons {
+  static const String appIcon = 'assets/images/ico.jpg';
   static const String policy = 'assets/images/policy_icon.png';
   static const String subsidy = 'assets/images/subsidy_icon.png';
   static const String weather = 'assets/images/weather_icon.png';
@@ -81,4 +82,14 @@ class WeatherIcon extends PngIcon {
     super.color,
     super.fallbackIcon = Icons.wb_sunny,
   }) : super(assetPath: AppIcons.weather);
+}
+
+class AppIcon extends PngIcon {
+  const AppIcon({
+    super.key,
+    super.width = 24,
+    super.height = 24,
+    super.color,
+    super.fallbackIcon = Icons.apps,
+  }) : super(assetPath: AppIcons.appIcon);
 }

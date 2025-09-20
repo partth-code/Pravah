@@ -358,7 +358,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
                       color: (isSubsidy ? Colors.amber : Colors.green).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const PolicyIcon(
+                    child: const AppIcon(
                       color: Colors.green,
                     ),
                   ),
@@ -518,17 +518,11 @@ class _PolicyDetailPage extends StatelessWidget {
                     color: Colors.green.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: isSubsidy 
-                    ? const SubsidyIcon(
-                        width: 28,
-                        height: 28,
-                        color: Colors.green,
-                      )
-                    : const PolicyIcon(
-                        width: 28,
-                        height: 28,
-                        color: Colors.green,
-                      ),
+                  child: const AppIcon(
+                    width: 28,
+                    height: 28,
+                    color: Colors.green,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
