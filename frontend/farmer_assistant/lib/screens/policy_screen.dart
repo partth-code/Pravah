@@ -3,18 +3,7 @@ import '../models/api_models.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class PolicyScreen extends StatefulWidget {
-  final List<Policy> policies;
-  final bool loading;
-  final Function(String) onSearch;
-  final String language;
-
-  const PolicyScreen({
-    super.key,
-    required this.policies,
-    required this.loading,
-    required this.onSearch,
-    required this.language,
-  });
+  const PolicyScreen({super.key});
 
   @override
   State<PolicyScreen> createState() => _PolicyScreenState();
@@ -24,81 +13,163 @@ class _PolicyScreenState extends State<PolicyScreen> {
   final TextEditingController _searchController = TextEditingController();
   bool _showSubsidies = false;
   late final List<Policy> _mockSubsidies;
+  late final List<Policy> _mockPolicies;
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
+    _initializeMockData();
+  }
+
+  void _initializeMockData() {
+    _mockPolicies = [
+      Policy(
+        policyId: 'p1',
+        title: 'PM Kisan Samman Nidhi',
+        description: 'Direct income support scheme providing ₹6,000 per year to all landholding farmer families across the country.',
+        eligibility: 'All landholding farmer families with cultivable land',
+        requiredDocs: [
+          'Aadhaar Card',
+          'Land Records',
+          'Bank Account Details',
+          'Mobile Number'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Income Support', 'Direct Benefit Transfer', 'Annual Payment'],
+        applicationDeadline: 'Ongoing',
+        benefits: '₹6,000 per year in 3 installments',
+        contactInfo: '1800-180-1551',
+        website: 'https://pmkisan.gov.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p2',
+        title: 'Pradhan Mantri Fasal Bima Yojana (PMFBY)',
+        description: 'Crop insurance scheme providing financial support to farmers in case of crop failure due to natural calamities.',
+        eligibility: 'All farmers growing notified crops in notified areas',
+        requiredDocs: [
+          'Land Records',
+          'Crop Details',
+          'Bank Account Details',
+          'Aadhaar Card'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Crop Insurance', 'Natural Calamities', 'Premium Subsidy'],
+        applicationDeadline: 'Before sowing season',
+        benefits: 'Up to 100% premium subsidy for small farmers',
+        contactInfo: '1800-180-1551',
+        website: 'https://pmfby.gov.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p3',
+        title: 'Soil Health Card Scheme',
+        description: 'Scheme to provide soil health cards to farmers with recommendations for appropriate use of fertilizers.',
+        eligibility: 'All farmers with agricultural land',
+        requiredDocs: [
+          'Land Records',
+          'Aadhaar Card',
+          'Mobile Number'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Soil Testing', 'Fertilizer Recommendation', 'Sustainable Farming'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Free soil testing and recommendations',
+        contactInfo: '1800-180-1551',
+        website: 'https://soilhealth.dac.gov.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p4',
+        title: 'Kisan Credit Card (KCC)',
+        description: 'Credit card scheme for farmers to meet their short-term credit requirements for cultivation.',
+        eligibility: 'All farmers including tenant farmers and oral lessees',
+        requiredDocs: [
+          'Land Records',
+          'Aadhaar Card',
+          'Bank Account Details',
+          'Income Certificate'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Credit Card', 'Short-term Credit', 'Low Interest'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Up to ₹3 lakh credit at 4% interest',
+        contactInfo: 'Contact nearest bank branch',
+        website: 'https://www.rbi.org.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p5',
+        title: 'Pradhan Mantri Kisan Sampada Yojana',
+        description: 'Scheme for creation of modern infrastructure for food processing sector.',
+        eligibility: 'Food processing units, entrepreneurs, and farmers',
+        requiredDocs: [
+          'Project Proposal',
+          'Land Documents',
+          'Financial Statements',
+          'Technical Details'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Food Processing', 'Infrastructure', 'Modernization'],
+        applicationDeadline: 'As per notification',
+        benefits: 'Up to 50% subsidy on project cost',
+        contactInfo: '1800-180-1551',
+        website: 'https://mofpi.nic.in',
+        status: 'Active',
+      ),
+      Policy(
+        policyId: 'p6',
+        title: 'National Mission for Sustainable Agriculture',
+        description: 'Mission to promote sustainable agriculture through climate change adaptation and mitigation measures.',
+        eligibility: 'Farmers practicing sustainable agriculture',
+        requiredDocs: [
+          'Land Records',
+          'Crop Details',
+          'Sustainability Practices Documentation'
+        ],
+        states: ['All States', 'Union Territories'],
+        tags: ['Sustainable Agriculture', 'Climate Change', 'Environment'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Financial assistance for sustainable practices',
+        contactInfo: '1800-180-1551',
+        website: 'https://nmsa.dac.gov.in',
+        status: 'Active',
+      ),
+    ];
+
     _mockSubsidies = [
       Policy(
         policyId: 'sub_001',
-        title: 'policy.mock_subsidies.seed_purchase.title'.tr(),
-        description: 'policy.mock_subsidies.seed_purchase.description'.tr(),
-        eligibility: 'policy.mock_subsidies.seed_purchase.eligibility'.tr(),
-        tags: [
-          'policy.mock_subsidies.seed_purchase.tags.0'.tr(),
-          'policy.mock_subsidies.seed_purchase.tags.1'.tr(),
-        ],
-        requiredDocs: [
-          'policy.mock_subsidies.seed_purchase.required_docs.0'.tr(),
-          'policy.mock_subsidies.seed_purchase.required_docs.1'.tr(),
-        ],
-        states: ['policy.mock_subsidies.seed_purchase.states.0'.tr()],
+        title: 'Seed Purchase Subsidy',
+        description: 'Get up to 50% subsidy on certified seeds for eligible farmers.',
+        eligibility: 'Smallholder farmers with valid ID',
+        tags: ['Seeds', 'Kharif'],
+        requiredDocs: ['Farmer ID', 'Bank Passbook'],
+        states: ['All States'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Up to 50% subsidy on certified seeds',
+        contactInfo: 'Contact local agriculture office',
+        website: 'https://agriculture.gov.in',
+        status: 'Active',
       ),
       Policy(
         policyId: 'sub_002',
-        title: 'policy.mock_subsidies.drip_irrigation.title'.tr(),
-        description: 'policy.mock_subsidies.drip_irrigation.description'.tr(),
-        eligibility: 'policy.mock_subsidies.drip_irrigation.eligibility'.tr(),
-        tags: [
-          'policy.mock_subsidies.drip_irrigation.tags.0'.tr(),
-          'policy.mock_subsidies.drip_irrigation.tags.1'.tr(),
-        ],
-        requiredDocs: [
-          'policy.mock_subsidies.drip_irrigation.required_docs.0'.tr(),
-          'policy.mock_subsidies.drip_irrigation.required_docs.1'.tr(),
-        ],
-        states: ['policy.mock_subsidies.drip_irrigation.states.0'.tr()],
+        title: 'Drip Irrigation Subsidy',
+        description: 'Financial support for micro-irrigation systems to save water.',
+        eligibility: 'Farmers with up to 5 acres',
+        tags: ['Irrigation', 'Water'],
+        requiredDocs: ['Land Records', 'Aadhaar'],
+        states: ['All States'],
+        applicationDeadline: 'Ongoing',
+        benefits: 'Up to 90% subsidy for small farmers',
+        contactInfo: 'Contact local agriculture office',
+        website: 'https://agriculture.gov.in',
+        status: 'Active',
       ),
     ];
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Update mock subsidies when language changes
-    _mockSubsidies = [
-      Policy(
-        policyId: 'sub_001',
-        title: 'policy.mock_subsidies.seed_purchase.title'.tr(),
-        description: 'policy.mock_subsidies.seed_purchase.description'.tr(),
-        eligibility: 'policy.mock_subsidies.seed_purchase.eligibility'.tr(),
-        tags: [
-          'policy.mock_subsidies.seed_purchase.tags.0'.tr(),
-          'policy.mock_subsidies.seed_purchase.tags.1'.tr(),
-        ],
-        requiredDocs: [
-          'policy.mock_subsidies.seed_purchase.required_docs.0'.tr(),
-          'policy.mock_subsidies.seed_purchase.required_docs.1'.tr(),
-        ],
-        states: ['policy.mock_subsidies.seed_purchase.states.0'.tr()],
-      ),
-      Policy(
-        policyId: 'sub_002',
-        title: 'policy.mock_subsidies.drip_irrigation.title'.tr(),
-        description: 'policy.mock_subsidies.drip_irrigation.description'.tr(),
-        eligibility: 'policy.mock_subsidies.drip_irrigation.eligibility'.tr(),
-        tags: [
-          'policy.mock_subsidies.drip_irrigation.tags.0'.tr(),
-          'policy.mock_subsidies.drip_irrigation.tags.1'.tr(),
-        ],
-        requiredDocs: [
-          'policy.mock_subsidies.drip_irrigation.required_docs.0'.tr(),
-          'policy.mock_subsidies.drip_irrigation.required_docs.1'.tr(),
-        ],
-        states: ['policy.mock_subsidies.drip_irrigation.states.0'.tr()],
-      ),
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +205,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         _searchController.clear();
-                        widget.onSearch('');
+                        _handleSearch('');
                       },
                       icon: const Icon(Icons.clear),
                     ),
@@ -144,7 +215,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
                     filled: true,
                     fillColor: Colors.grey.withOpacity(0.1),
                   ),
-                  onSubmitted: (value) => widget.onSearch(value),
+                  onSubmitted: (value) => _handleSearch(value),
                 ),
               ),
               const SizedBox(width: 12),
@@ -180,7 +251,7 @@ class _PolicyScreenState extends State<PolicyScreen> {
             label: Text(suggestions[index].tr()),
             onPressed: () {
               _searchController.text = suggestions[index].tr();
-              widget.onSearch(suggestions[index].tr());
+              _handleSearch(suggestions[index].tr());
             },
             backgroundColor: Colors.green.withOpacity(0.1),
             labelStyle: const TextStyle(color: Colors.green),
@@ -190,14 +261,40 @@ class _PolicyScreenState extends State<PolicyScreen> {
     );
   }
 
-  // Old wide toggle removed in favor of compact control next to search
+  void _handleSearch(String query) {
+    setState(() {
+      _loading = true;
+    });
+    
+    // Simulate search delay
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        _loading = false;
+      });
+    });
+  }
+
+  List<Policy> _getFilteredItems() {
+    final items = _showSubsidies ? _mockSubsidies : _mockPolicies;
+    final query = _searchController.text.toLowerCase();
+    
+    if (query.isEmpty) {
+      return items;
+    }
+    
+    return items.where((policy) {
+      return policy.title.toLowerCase().contains(query) ||
+             policy.description.toLowerCase().contains(query) ||
+             policy.tags.any((tag) => tag.toLowerCase().contains(query));
+    }).toList();
+  }
 
   Widget _buildContent() {
-    if (widget.loading) {
+    if (_loading) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    final items = _showSubsidies ? _mockSubsidies : widget.policies;
+    final items = _getFilteredItems();
 
     if (items.isEmpty) {
       return _buildEmptyState();
