@@ -374,6 +374,8 @@ class _PolicyScreenState extends State<PolicyScreen> {
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
                         Text(
@@ -382,6 +384,8 @@ class _PolicyScreenState extends State<PolicyScreen> {
                             fontSize: 12,
                             color: Colors.grey,
                           ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
@@ -398,7 +402,8 @@ class _PolicyScreenState extends State<PolicyScreen> {
               ),
               const SizedBox(height: 12),
               Wrap(
-                spacing: 8,
+                spacing: 6,
+                runSpacing: 4,
                 children: policy.tags.take(3).map((tag) => Chip(
                   label: Text(
                     tag,
@@ -406,19 +411,25 @@ class _PolicyScreenState extends State<PolicyScreen> {
                   ),
                   backgroundColor: Colors.blue.withOpacity(0.1),
                   labelStyle: const TextStyle(color: Colors.blue),
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 )).toList(),
               ),
               const SizedBox(height: 12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    '${'policy.required'.tr()}: ${policy.requiredDocs.length} ${'policy.documents'.tr()}',
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
+                  Expanded(
+                    child: Text(
+                      '${'policy.required'.tr()}: ${policy.requiredDocs.length} ${'policy.documents'.tr()}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () => _openDetails(policy, isSubsidy: isSubsidy),
                     style: ElevatedButton.styleFrom(
@@ -427,8 +438,13 @@ class _PolicyScreenState extends State<PolicyScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      minimumSize: Size.zero,
                     ),
-                    child: Text(isSubsidy ? 'policy.claim'.tr() : 'policy.apply'.tr()),
+                    child: Text(
+                      isSubsidy ? 'policy.claim'.tr() : 'policy.apply'.tr(),
+                      style: const TextStyle(fontSize: 12),
+                    ),
                   ),
                 ],
               ),
@@ -510,9 +526,19 @@ class _PolicyDetailPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(policy.title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text(
+                        policy.title, 
+                        style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                       const SizedBox(height: 4),
-                      Text(policy.eligibility, style: const TextStyle(color: Colors.grey)),
+                      Text(
+                        policy.eligibility, 
+                        style: const TextStyle(color: Colors.grey),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ],
                   ),
                 ),
@@ -521,7 +547,10 @@ class _PolicyDetailPage extends StatelessWidget {
             const SizedBox(height: 20),
             Text('policy.description'.tr(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
-            Text(policy.description),
+            Text(
+              policy.description,
+              style: const TextStyle(fontSize: 14),
+            ),
             const SizedBox(height: 16),
             Text('policy.required_docs'.tr(), style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
