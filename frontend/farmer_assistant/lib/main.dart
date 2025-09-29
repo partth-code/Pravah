@@ -15,6 +15,7 @@ import 'screens/disease_detection_screen.dart';
 import 'widgets/calendar_dropdown.dart';
 import 'widgets/loading_screen.dart';
 import 'models/api_models.dart';
+import 'screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,9 +60,11 @@ class FarmerAssistantApp extends StatelessWidget {
                   ),
                 );
               },
-              child: stateService.isAppLoading 
+              child: stateService.isAppLoading
                   ? const LoadingScreen(key: ValueKey('loading'))
-                  : AppShell(key: const ValueKey('app')),
+                  : stateService.isAuthenticated
+                      ? AppShell(key: const ValueKey('app'))
+                      : const LoginScreen(key: ValueKey('login')),
             ),
             locale: context.locale,
             supportedLocales: context.supportedLocales,

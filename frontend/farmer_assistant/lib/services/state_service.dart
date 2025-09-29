@@ -9,6 +9,10 @@ class StateService extends ChangeNotifier {
 
   // App Loading State
   bool _isAppLoading = true;
+  
+  // Auth State (mock phone + OTP flow)
+  bool _isAuthenticated = false;
+  String _pendingPhoneNumber = '';
 
   // User and Farm Data
   UserProfile? _userProfile;
@@ -41,6 +45,8 @@ class StateService extends ChangeNotifier {
 
   // Getters
   bool get isAppLoading => _isAppLoading;
+  bool get isAuthenticated => _isAuthenticated;
+  String get pendingPhoneNumber => _pendingPhoneNumber;
   UserProfile? get userProfile => _userProfile;
   FarmProfile? get farmProfile => _farmProfile;
   WeatherData? get weatherData => _weatherData;
@@ -102,7 +108,7 @@ class StateService extends ChangeNotifier {
       // Leaderboard
       await fetchLeaderboard();
       
-      // App loading complete
+      // App loading complete (do not auto-authenticate)
       _isAppLoading = false;
       notifyListeners();
     } catch (e) {
@@ -112,6 +118,28 @@ class StateService extends ChangeNotifier {
       _isAppLoading = false;
       notifyListeners();
     }
+  }
+
+  // ---- Mock Auth: Phone + OTP ----
+  void startPhoneLogin(String phoneNumber) {
+    _pendingPhoneNumber = phoneNumber.trim();
+    notifyListeners();
+  }
+
+  bool verifyOtp(String otp) {
+    // Mock OTP: 031006
+    if (otp.trim() == '031006' && _pendingPhoneNumber.isNotEmpty) {
+      _isAuthenticated = true;
+      notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  void logout() {
+    _isAuthenticated = false;
+    _pendingPhoneNumber = '';
+    notifyListeners();
   }
 
   void _createMockData() {
