@@ -16,6 +16,7 @@ import 'widgets/calendar_dropdown.dart';
 import 'widgets/loading_screen.dart';
 import 'models/api_models.dart';
 import 'screens/login_screen.dart';
+import 'onboarding/page1.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,29 +44,30 @@ class FarmerAssistantApp extends StatelessWidget {
             title: 'Pravah',
             theme: AppTheme.light(),
             debugShowCheckedModeBanner: false,
-            home: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 800),
-              transitionBuilder: (Widget child, Animation<double> animation) {
-                return FadeTransition(
-                  opacity: animation,
-                  child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(0.0, 0.1),
-                      end: Offset.zero,
-                    ).animate(CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeOutCubic,
-                    )),
-                    child: child,
-                  ),
-                );
-              },
-              child: stateService.isAppLoading
-                  ? const LoadingScreen(key: ValueKey('loading'))
-                  : stateService.isAuthenticated
-                      ? AppShell(key: const ValueKey('app'))
-                      : const LoginScreen(key: ValueKey('login')),
-            ),
+            home: OnboardingPage1(),
+            // home: AnimatedSwitcher(
+            //   duration: const Duration(milliseconds: 800),
+            //   transitionBuilder: (Widget child, Animation<double> animation) {
+            //     return FadeTransition(
+            //       opacity: animation,
+            //       child: SlideTransition(
+            //         position: Tween<Offset>(
+            //           begin: const Offset(0.0, 0.1),
+            //           end: Offset.zero,
+            //         ).animate(CurvedAnimation(
+            //           parent: animation,
+            //           curve: Curves.easeOutCubic,
+            //         )),
+            //         child: child,
+            //       ),
+            //     );
+            //   },
+            //   child: stateService.isAppLoading
+            //       ? const LoadingScreen(key: ValueKey('loading'))
+            //       : stateService.isAuthenticated
+            //           ? AppShell(key: const ValueKey('app'))
+            //           : const LoginScreen(key: ValueKey('login')),
+            // ),
             locale: context.locale,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
