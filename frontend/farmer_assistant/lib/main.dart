@@ -17,6 +17,7 @@ import 'widgets/loading_screen.dart';
 import 'models/api_models.dart';
 import 'screens/login_screen.dart';
 import 'onboarding/page1.dart';
+import 'onboarding/page2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +45,7 @@ class FarmerAssistantApp extends StatelessWidget {
             title: 'Pravah',
             theme: AppTheme.light(),
             debugShowCheckedModeBanner: false,
-            home: OnboardingPage1(),
+            home: OnboardingPage2(),
             // home: AnimatedSwitcher(
             //   duration: const Duration(milliseconds: 800),
             //   transitionBuilder: (Widget child, Animation<double> animation) {
