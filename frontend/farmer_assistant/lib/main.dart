@@ -16,8 +16,13 @@ import 'widgets/calendar_dropdown.dart';
 import 'widgets/loading_screen.dart';
 import 'models/api_models.dart';
 import 'screens/login_screen.dart';
+
+//OnBoarding Pages
 import 'onboarding/page1.dart';
 import 'onboarding/page2.dart';
+import 'onboarding/page3.dart';
+import 'onboarding/page4.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +50,7 @@ class FarmerAssistantApp extends StatelessWidget {
             title: 'Pravah',
             theme: AppTheme.light(),
             debugShowCheckedModeBanner: false,
-            home: OnboardingPage2(),
+            home: OnboardingPage4(),
             // home: AnimatedSwitcher(
             //   duration: const Duration(milliseconds: 800),
             //   transitionBuilder: (Widget child, Animation<double> animation) {
